@@ -1,8 +1,13 @@
-import React, {PropTypes} from 'react';
-import { connect }        from 'react-redux';
-import { setCurrentUser } from '../../actions/settings';
+import React, {PropTypes}   from 'react';
+import { connect }          from 'react-redux';
+import { setDocumentTitle } from '../../utils';
+import { setCurrentUser }   from '../../actions/settings';
 
 class SettingsIndexView extends React.Component {
+  componentDidMount() {
+    setDocumentTitle('Settings');
+  }
+
   _handleFormSubmit(e) {
     e.preventDefault();
 
@@ -13,11 +18,11 @@ class SettingsIndexView extends React.Component {
         toggle_api_token: togglApiToken.value.trim(),
       },
     };
-    const { channel } = this.props;
+    const { channel, dispatch } = this.props;
 
     channel.push('user:update', data)
     .receive('ok', (payload) => {
-      setCurrentUser(payload.user);
+      dispatch(setCurrentUser(payload.user));
     });
   }
 
