@@ -1,5 +1,6 @@
 defmodule Kairos.UserChannel do
   use Kairos.Web, :channel
+  require Logger
 
   alias Kairos.{Repo, User}
 
@@ -21,9 +22,20 @@ defmodule Kairos.UserChannel do
     |> Repo.update
     |> case do
       {:ok, user} ->
-        {:reply, {:ok, %{user: user}}, socket}
+        {:reply, {:ok, %{user: user}}, assign(socket, :current_user, user)}
       {:error, _changeset} ->
         {:reply, {:error,%{reason: "Invalid"}}, socket}
     end
+  end
+
+  def handle_in("user:projects", _params, socket) do
+    Logger.info "Requesting projects from UserChannel"
+
+    current_user = socket.assigns.current_user
+
+    client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_traker_api_token}
+    projects = client |> ExTracker.Projects.list
+
+    {:reply, {:ok, %{projects: projects}}, socket}
   end
 end
