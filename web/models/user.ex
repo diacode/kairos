@@ -13,7 +13,7 @@ defmodule Kairos.User do
 
     field :password, :string, virtual: true
 
-    embeds_one :settings, Settings
+    embeds_one :settings, Settings, on_replace: :delete
 
     timestamps
   end
