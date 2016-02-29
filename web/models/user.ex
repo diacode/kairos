@@ -1,6 +1,8 @@
 defmodule Kairos.User do
   use Kairos.Web, :model
 
+  alias Kairos.User.Settings
+  
   @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :email]}
 
   schema "users" do
@@ -10,6 +12,8 @@ defmodule Kairos.User do
     field :encrypted_password, :string
 
     field :password, :string, virtual: true
+
+    embeds_one :settings, Settings
 
     timestamps
   end
