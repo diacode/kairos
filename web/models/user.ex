@@ -2,8 +2,8 @@ defmodule Kairos.User do
   use Kairos.Web, :model
 
   alias Kairos.User.Settings
-  
-  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :email]}
+
+  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :email, :settings]}
 
   schema "users" do
     field :first_name, :string
@@ -19,6 +19,7 @@ defmodule Kairos.User do
   end
 
   @required_fields ~w(first_name email password)
+  @update_required_fields ~w(first_name email)
   @optional_fields ~w(encrypted_password last_name)
 
   @doc """
@@ -34,6 +35,14 @@ defmodule Kairos.User do
     |> validate_length(:password, min: 5)
     |> unique_constraint(:email, message: "Email already taken")
     |> generate_encrypted_password
+  end
+
+  def update_changeset(model, params \\ :empty) do
+    model
+    |> cast(params, @update_required_fields, @optional_fields)
+    |> cast_embed(:settings, required: false)
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email, message: "Email already taken")
   end
 
   defp generate_encrypted_password(current_changeset) do
