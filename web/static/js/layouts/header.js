@@ -46,12 +46,15 @@ class Header extends React.Component {
     return (
       <header className="main-header">
         <Link to='/'>
-          <span className='logo'/>
+          Kairos
         </Link>
         <nav className="right">
           <ul>
             <li>
               {this._renderCurrentUser()}
+            </li>
+            <li>
+              <Link to="/settings">Settings</Link>
             </li>
             <li>
               {this._renderSignOutLink()}
