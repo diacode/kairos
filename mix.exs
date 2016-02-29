@@ -26,7 +26,8 @@ defmodule Kairos.Mixfile do
        :gettext,
        :phoenix_ecto,
        :postgrex,
-       :comeonin
+       :comeonin,
+       :extracker
      ]
    ]
   end
@@ -50,6 +51,8 @@ defmodule Kairos.Mixfile do
       {:comeonin, "~> 2.0"},
       {:guardian, "~> 0.10.0"},
       {:credo, "~> 0.2", only: [:dev, :test]},
+      {:poison, "~> 2.0", override: true},
+      {:extracker, github: "dashofcode/extracker"}
     ]
   end
 
