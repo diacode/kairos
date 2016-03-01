@@ -39,7 +39,9 @@ class SettingsIndexView extends React.Component {
     return (
       <div>
         <form onSubmit={::this._handleFormSubmit}>
+          <label htmlFor="pivotalTrackerApiToken">Pivotal Tracker API token</label>
           <input type="text" ref="pivotalTrackerApiToken" defaultValue={pivotalTrackerApiToken}/>
+          <label htmlFor="togglApiToken">Toggle API token</label>
           <input type="text" ref="togglApiToken" defaultValue={togglApiToken}/>
           <button type="submit">Save</button>
         </form>
