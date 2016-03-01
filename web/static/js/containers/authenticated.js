@@ -6,7 +6,7 @@ export default class AuthenticatedContainer extends React.Component {
     return (
       <div id="authentication_container" className="application-container">
         <Header/>
-        <div className='main-container'>
+        <div className="container">
           {this.props.children}
         </div>
       </div>

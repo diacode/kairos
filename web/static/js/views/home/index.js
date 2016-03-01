@@ -42,14 +42,16 @@ class HomeIndexView extends React.Component {
 
     const projectsNodes = projects.map((item) => {
       return (
-        <li key={item.id}>
-          <h2>{item.name}</h2>
+        <li key={item.id} className="project-item">
+          <div className="inner">
+            <h2>{item.name}</h2>
+          </div>
         </li>
       );
     });
 
     return (
-      <ul>
+      <ul className="project-list">
         {projectsNodes}
       </ul>
     );
