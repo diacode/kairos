@@ -41,14 +41,17 @@ $header-height: $base-line-height * 2.3em
       li
         display: inline-block
 
+        &:not(:last-of-type)
+          a
+            margin-right: 1em
+
         a
           +transition
           color: rgba(#fff, .5)
-          background: rgba(#fff, .15)
           border-radius: $base-border-radius
           padding: .3em .5em
           line-height: 1em
-          margin-right: 1em
+
 
           &.current-user
             position: relative
