@@ -11,10 +11,10 @@ class SettingsIndexView extends React.Component {
   _handleFormSubmit(e) {
     e.preventDefault();
 
-    const { pivotalTrakerApiToken, togglApiToken } = this.refs;
+    const { pivotalTrackerApiToken, togglApiToken } = this.refs;
     const data = {
       settings: {
-        pivotal_traker_api_token: pivotalTrakerApiToken.value.trim(),
+        pivotal_tracker_api_token: pivotalTrackerApiToken.value.trim(),
         toggle_api_token: togglApiToken.value.trim(),
       },
     };
@@ -33,13 +33,13 @@ class SettingsIndexView extends React.Component {
 
     const { settings } = currentUser;
 
-    let pivotalTrakerApiToken = settings ? settings.pivotal_traker_api_token : '';
-    let togglApiToken = settings ? settings.toggle_api_token : '';
+    const pivotalTrackerApiToken = settings ? settings.pivotal_tracker_api_token : '';
+    const togglApiToken = settings ? settings.toggle_api_token : '';
 
     return (
       <div>
         <form onSubmit={::this._handleFormSubmit}>
-          <input type="text" ref="pivotalTrakerApiToken" defaultValue={pivotalTrakerApiToken}/>
+          <input type="text" ref="pivotalTrackerApiToken" defaultValue={pivotalTrackerApiToken}/>
           <input type="text" ref="togglApiToken" defaultValue={togglApiToken}/>
           <button type="submit">Save</button>
         </form>
