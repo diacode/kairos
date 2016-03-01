@@ -3,15 +3,12 @@ import { connect }          from 'react-redux';
 import classnames           from 'classnames';
 
 import { setDocumentTitle } from '../../utils';
-import { setProjects }      from '../../actions/projects';
+import { setProjects, fetchProjects }      from '../../actions/projects';
 
 class HomeIndexView extends React.Component {
-  componentDidMount() {
-    setDocumentTitle('Home');
-    this._fetchProjects(this.props);
-  }
-
   componentWillReceiveProps(nextProps) {
+    const { fetching } = nextProps;
+
     this._fetchProjects(nextProps);
   }
 
@@ -21,20 +18,18 @@ class HomeIndexView extends React.Component {
     dispatch(setProjects(null));
   }
 
-  _fetchProjects(nextProps) {
-    const { channel, dispatch, projects } = nextProps;
+  _fetchProjects(props) {
+    const { channel, dispatch, projects, fetching } = props;
 
-    if (channel === null || projects != null) return false;
+    if (channel === null || projects != null || fetching) return false;
 
-    channel.push('user:projects')
-    .receive('ok', (payload) => {
-      dispatch(setProjects(payload.projects));
-    });
+    dispatch(fetchProjects(channel));
   }
 
   _renderProjects() {
-    const { projects } = this.props;
+    const { projects, fetching } = this.props;
 
+    if (fetching) return this._renderFetching();
     if (projects === null) return false;
 
     const projectsNodes = projects.map((item) => {
@@ -52,6 +47,14 @@ class HomeIndexView extends React.Component {
     );
   }
 
+  _renderFetching() {
+    return (
+      <div>
+        Fetching
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className='view-container home index'>
@@ -62,7 +65,7 @@ class HomeIndexView extends React.Component {
 }
 
 const mapStateToProps = (state) => (
-  { ...state.session, projects: state.projects.items }
+  { ...state.session, ...state.projects }
 );
 
 export default connect(mapStateToProps)(HomeIndexView);
