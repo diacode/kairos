@@ -28,6 +28,9 @@ class SettingsIndexView extends React.Component {
 
   render() {
     const { currentUser } = this.props;
+
+    if (!currentUser) return false;
+
     const { settings } = currentUser;
 
     let pivotalTrakerApiToken = settings ? settings.pivotal_traker_api_token : '';
