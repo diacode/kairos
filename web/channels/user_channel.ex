@@ -37,5 +37,8 @@ defmodule Kairos.UserChannel do
     projects = client |> ExTracker.Projects.list
 
     {:reply, {:ok, %{projects: projects}}, socket}
+  rescue
+    _ ->
+      {:reply, {:error, %{reason: "Error in API call"}}, socket}
   end
 end
