@@ -17,9 +17,9 @@ $base-z-index: 0
 
 // Colors
 $blue: #1565c0
-$dark-gray: #333
-$medium-gray: #999
-$light-gray: #ddd
+$light-gray: #F6F6F6
+$dark-gray: shade($light-gray, 40)
+$medium-gray: shade($light-gray, 20)
 
 // Font Colors
 $base-font-color: $dark-gray
@@ -30,13 +30,16 @@ $base-border-color: $light-gray
 $base-border: 1px solid $base-border-color
 
 // Background Colors
-$base-background-color: #fff
+$base-background-color: $light-gray
 $secondary-background-color: tint($base-border-color, 75%)
 
 // Forms
-$form-box-shadow: 0 0 0
-$form-box-shadow-focus: 0 0 0 
+$form-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+$form-box-shadow-focus: 0 0 0
 
 // Animations
 $base-duration: 150ms
 $base-timing: ease
+
+// Box shadow
+$base-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)

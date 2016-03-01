@@ -1,0 +1,26 @@
+// - - - - - - - - - - - - - - - - - - -
+// - - example-module module
+// styles for the example-module module
+
+.project-list
+  +display(flex)
+  +flex-wrap(wrap)
+  +fill-parent
+  margin: 0 -15px 0 -15px
+
+  .project-item
+    +flex(0 0 25%)
+    +align-self(stretch)
+    margin-bottom: 20px
+    padding: 15px
+
+    .inner
+      +transition
+      background: white
+      min-height: 300px
+      padding: $small-spacing
+      box-shadow: $base-box-shadow
+
+      &:hover, &:focus
+        box-shadow: rgba(black, 0.45) 0px 0px 20px 0px
+        background: white
