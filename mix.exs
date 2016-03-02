@@ -43,7 +43,7 @@ defmodule Kairos.Mixfile do
     [
       {:phoenix, "~> 1.1.4"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_ecto, "~> 3.0.0-beta.2"},
+      {:phoenix_ecto, "~> 2.0"},
       {:phoenix_html, "~> 2.4"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.9"},
@@ -52,7 +52,8 @@ defmodule Kairos.Mixfile do
       {:guardian, "~> 0.10.0"},
       {:credo, "~> 0.2", only: [:dev, :test]},
       {:poison, "~> 2.0", override: true},
-      {:extracker, github: "dashofcode/extracker"}
+      {:extracker, github: "dashofcode/extracker"},
+      {:hound, "~> 0.8"}
     ]
   end
 
