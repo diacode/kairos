@@ -4,6 +4,7 @@ import session              from './session';
 import registration         from './registration';
 import header               from './header';
 import projects             from './projects';
+import currentProject       from './current_project';
 
 export default combineReducers({
   routing: routeReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   registration: registration,
   header: header,
   projects: projects,
+  currentProject: currentProject,
 });

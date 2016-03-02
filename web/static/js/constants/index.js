@@ -9,6 +9,10 @@ const Constants = {
   // Projects
   PROJECTS_FETCH_START: 'PROJECTS_FETCH_START',
   PROJECTS_SET: 'PROJECTS_SET',
+
+  // Current project
+  CURRENT_PROJECT_SET: 'CURRENT_PROJECT_SET',
+  CURRENT_PROJECT_RESET: 'CURRENT_PROJECT_RESET',
 };
 
 export default Constants;
