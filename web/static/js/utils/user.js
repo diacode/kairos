@@ -16,14 +16,4 @@ export default class User {
   canFetchProjects() {
     return this.channel !== null && this.hasValidSettings();
   }
-
-  clone() {
-    return new User({
-      first_name: this.firstName,
-      last_name: this.lastName,
-      email: this.email,
-      settings: this.settings,
-      channel: this.channel,
-    });
-  }
 }
