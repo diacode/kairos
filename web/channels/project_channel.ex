@@ -3,6 +3,8 @@ defmodule Kairos.ProjectChannel do
   require Logger
 
   def join("project:" <> project_id, _params, socket) do
+    Logger.info "Joined to ProjectChannel"
+    
     current_user = socket.assigns.current_user
 
     client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_tracker_api_token}

@@ -5,6 +5,8 @@ defmodule Kairos.UserChannel do
   alias Kairos.{Repo, User}
 
   def join("users:" <> user_id, _params, socket) do
+    Logger.info "Joined to UserChannel"
+
     current_user = socket.assigns.current_user
 
     if String.to_integer(user_id) == current_user.id do

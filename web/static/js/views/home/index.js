@@ -46,7 +46,10 @@ class HomeIndexView extends React.Component {
 
     const projectsNodes = projects.map((item) => {
       return (
-        <ProjectCard key={item.id} {...item} />
+        <ProjectCard
+          key={item.id}
+          dispatch={dispatch}
+          {...item} />
       );
     });
 
