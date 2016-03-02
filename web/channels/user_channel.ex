@@ -15,6 +15,8 @@ defmodule Kairos.UserChannel do
   end
 
   def handle_in("user:update", params, socket) do
+    Logger.info "Updating user in UserChannel"
+
     current_user = socket.assigns.current_user
 
     current_user
