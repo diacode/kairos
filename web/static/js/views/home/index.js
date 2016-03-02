@@ -8,6 +8,10 @@ import ProjectCard                      from '../../components/projects/card';
 
 class HomeIndexView extends React.Component {
   componentWillReceiveProps(nextProps) {
+    const { currentUser } = nextProps;
+
+    if (!currentUser) return false;
+
     this._fetchProjects(nextProps);
   }
 
@@ -18,18 +22,17 @@ class HomeIndexView extends React.Component {
   }
 
   _fetchProjects(props) {
-    const { channel, dispatch, projects, fetching, currentUser } = props;
+    const { dispatch, projects, fetching, currentUser } = props;
 
-    if (currentUser === null || !currentUser.canFetchProjects()) return false;
-    if (channel === null || projects != null || fetching) return false;
+    if (!currentUser.canFetchProjects() || projects != null || fetching) return false;
 
-    dispatch(fetchProjects(channel));
+    dispatch(fetchProjects(currentUser.channel));
   }
 
   _renderProjects() {
     const { projects, fetching, currentUser, dispatch, channel } = this.props;
 
-    if (!currentUser.canFetchProjects()) {
+    if (!currentUser.hasValidSettings()) {
       return (
         <OnboardingForm
           currentUser={currentUser}

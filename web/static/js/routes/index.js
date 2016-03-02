@@ -28,11 +28,10 @@ export default function configRoutes(store) {
   const _fetchProjects = (nextState, replace) => {
     const { session } = store.getState();
     const { currentUser } = session;
-    const { channel } = session;
 
-    if (channel === null || !currentUser.canFetchProjects()) return false;
+    if (!currentUser || !currentUser.canFetchProjects()) return false;
 
-    store.dispatch(fetchProjects(channel));
+    store.dispatch(fetchProjects(currentUser.channel));
   };
 
   return (

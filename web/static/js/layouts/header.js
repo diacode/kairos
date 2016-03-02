@@ -35,9 +35,9 @@ class Header extends React.Component {
   _handleSignOutClick(e) {
     e.preventDefault();
 
-    const { dispatch, socket, channel } = this.props;
+    const { dispatch, socket, currentUser } = this.props;
 
-    dispatch(SessionActions.signOut(socket, channel));
+    dispatch(SessionActions.signOut(socket, currentUser.channel));
   }
 
   render() {
