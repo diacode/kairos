@@ -1,12 +1,12 @@
 import { IndexRoute, Route }    from 'react-router';
 import React                    from 'react';
-import { routeActions }         from 'react-router-redux';
 import MainLayout               from '../layouts/main';
 import AuthenticatedContainer   from '../containers/authenticated';
 import HomeIndexView            from '../views/home';
 import RegistrationsNew         from '../views/registrations/new';
 import SessionsNew              from '../views/sessions/new';
 import SettingsIndexView        from '../views/settings/index';
+import ProjectsShowView         from '../views/projects/show';
 import { fetchProjects }        from '../actions/projects';
 import Actions                  from '../actions/sessions';
 
@@ -41,6 +41,8 @@ export default function configRoutes(store) {
 
       <Route path="/" component={AuthenticatedContainer} onEnter={_ensureAuthenticated}>
         <IndexRoute component={HomeIndexView} onEnter={_fetchProjects} />
+        <Route path="projects/:id" component={ProjectsShowView} />
+
         <Route path="settings" component={SettingsIndexView} />
       </Route>
     </Route>
