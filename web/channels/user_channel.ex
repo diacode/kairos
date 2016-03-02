@@ -34,7 +34,7 @@ defmodule Kairos.UserChannel do
     current_user = socket.assigns.current_user
 
     client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_tracker_api_token}
-    projects = client |> ExTracker.Projects.list
+    projects = client |> ExTracker.Projects.list(fields: ":default,current_velocity")
 
     {:reply, {:ok, %{projects: projects}}, socket}
   rescue
