@@ -4,7 +4,7 @@ export default class User {
     this.lastName = args.last_name;
     this.email = args.email;
     this.settings = args.settings;
-    this.channel = null;
+    this.channel = args.channel;
   }
 
   hasValidSettings() {
@@ -15,10 +15,6 @@ export default class User {
 
   canFetchProjects() {
     return this.channel !== null && this.hasValidSettings();
-  }
-
-  setChannel(channel) {
-    this.channel = channel;
   }
 
   clone() {

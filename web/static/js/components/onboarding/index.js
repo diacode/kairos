@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { setCurrentUser }   from '../../actions/settings';
+import { update }   from '../../actions/settings';
 
 export default class OnboardingForm extends React.Component {
 
@@ -13,12 +13,9 @@ export default class OnboardingForm extends React.Component {
         toggle_api_token: togglApiToken.value.trim(),
       },
     };
-    const { channel, dispatch } = this.props;
+    const { currentUser, dispatch } = this.props;
 
-    channel.push('user:update', data)
-    .receive('ok', (payload) => {
-      dispatch(setCurrentUser(payload.user));
-    });
+    dispatch(update(currentUser, data));
   }
 
   render () {
