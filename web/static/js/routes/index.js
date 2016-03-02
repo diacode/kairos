@@ -30,7 +30,7 @@ export default function configRoutes(store) {
     const { currentUser } = session;
     const { channel } = session;
 
-    if (channel === null || currentUser.settings === null || currentUser.settings.pivotal_tracker_api_token === '') return false;
+    if (channel === null || !currentUser.canFetchProjects()) return false;
 
     store.dispatch(fetchProjects(channel));
   };

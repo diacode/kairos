@@ -1,4 +1,5 @@
 import Constants from '../constants';
+import User      from '../utils/user';
 
 const initialState = {
   currentUser: null,
@@ -10,7 +11,8 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case Constants.CURRENT_USER:
-      return { ...state, currentUser: action.currentUser, error: null };
+      const user = new User(action.currentUser);
+      return { ...state, currentUser: user, error: null };
 
     case Constants.USER_SIGNED_OUT:
       return initialState;

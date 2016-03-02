@@ -15,11 +15,9 @@ class Header extends React.Component {
       return false;
     }
 
-    const fullName = [currentUser.first_name, currentUser.last_name].join(' ');
-
     return (
       <a className="current-user">
-        <ReactGravatar className="react-gravatar" email={currentUser.email} https /> {fullName}
+        <ReactGravatar className="react-gravatar" email={currentUser.email} https /> {currentUser.firstName}
       </a>
     );
   }
