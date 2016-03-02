@@ -46,7 +46,7 @@ class Header extends React.Component {
     return (
       <header className="main-header">
         <Link to='/'>
-          Kairos
+          <div className="logo"></div>
         </Link>
         <nav className="right">
           <ul>

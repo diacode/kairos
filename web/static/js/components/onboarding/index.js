@@ -1,12 +1,7 @@
-import React, {PropTypes}   from 'react';
-import { connect }          from 'react-redux';
-import { setDocumentTitle } from '../../utils';
+import React, { PropTypes } from 'react';
 import { setCurrentUser }   from '../../actions/settings';
 
-class SettingsIndexView extends React.Component {
-  componentDidMount() {
-    setDocumentTitle('Settings');
-  }
+export default class OnboardingForm extends React.Component {
 
   _handleFormSubmit(e) {
     e.preventDefault();
@@ -26,22 +21,17 @@ class SettingsIndexView extends React.Component {
     });
   }
 
-  render() {
+  render () {
     const { currentUser } = this.props;
-
-    if (!currentUser) return false;
-
     const { settings } = currentUser;
 
-    const pivotalTrackerApiToken = settings ? settings.pivotal_tracker_api_token : '';
-    const togglApiToken = settings ? settings.toggle_api_token : '';
+    let pivotalTrackerApiToken = settings != null ? settings.pivotal_tracker_api_token : '';
+    let togglApiToken = settings != null ? settings.toggle_api_token : '';
 
     return (
-      <div>
+      <div className="modal">
         <form onSubmit={::this._handleFormSubmit}>
-          <label htmlFor="pivotalTrackerApiToken">Pivotal Tracker API token</label>
           <input type="text" ref="pivotalTrackerApiToken" defaultValue={pivotalTrackerApiToken}/>
-          <label htmlFor="togglApiToken">Toggle API token</label>
           <input type="text" ref="togglApiToken" defaultValue={togglApiToken}/>
           <button type="submit">Save</button>
         </form>
@@ -49,9 +39,3 @@ class SettingsIndexView extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => (
-  state.session
-);
-
-export default connect(mapStateToProps)(SettingsIndexView);

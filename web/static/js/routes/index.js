@@ -27,9 +27,10 @@ export default function configRoutes(store) {
 
   const _fetchProjects = (nextState, replace) => {
     const { session } = store.getState();
+    const { currentUser } = session;
     const { channel } = session;
 
-    if (channel === null) return false;
+    if (channel === null || currentUser.settings === null || currentUser.settings.pivotal_tracker_api_token === '') return false;
 
     store.dispatch(fetchProjects(channel));
   };
