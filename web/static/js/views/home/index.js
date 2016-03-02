@@ -4,6 +4,7 @@ import classnames                       from 'classnames';
 import { setDocumentTitle }             from '../../utils';
 import { setProjects, fetchProjects }   from '../../actions/projects';
 import OnboardingForm                   from '../../components/onboarding';
+import ProjectCard                      from '../../components/projects/card';
 
 class HomeIndexView extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -19,7 +20,7 @@ class HomeIndexView extends React.Component {
   _fetchProjects(props) {
     const { channel, dispatch, projects, fetching, currentUser } = props;
 
-    if (currentUser === null || currentUser.settings === null || currentUser.settings.pivotal_tracker_api_token === null || currentUser.settings.pivotal_tracker_api_token === '') return false;
+    if (currentUser === null || !currentUser.canFetchProjects()) return false;
     if (channel === null || projects != null || fetching) return false;
 
     dispatch(fetchProjects(channel));
@@ -28,7 +29,7 @@ class HomeIndexView extends React.Component {
   _renderProjects() {
     const { projects, fetching, currentUser, dispatch, channel } = this.props;
 
-    if (currentUser.settings === null || currentUser.settings.pivotal_tracker_api_token === null || currentUser.settings.pivotal_tracker_api_token === '') {
+    if (!currentUser.canFetchProjects()) {
       return (
         <OnboardingForm
           currentUser={currentUser}
@@ -42,11 +43,7 @@ class HomeIndexView extends React.Component {
 
     const projectsNodes = projects.map((item) => {
       return (
-        <li key={item.id} className="project-item">
-          <div className="inner">
-            <h2>{item.name}</h2>
-          </div>
-        </li>
+        <ProjectCard key={item.id} {...item} />
       );
     });
 
