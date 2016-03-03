@@ -12,5 +12,7 @@ defmodule Kairos.ProjectChannel do
     stories = ExTracker.Stories.list(client, project_id)
 
     {:ok, %{project: project, stories: stories}, socket}
+  rescue
+    _ -> {:error, %{reason: "Error retrieving project from Pivotal Tracker"}}
   end
 end
