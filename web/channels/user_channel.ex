@@ -5,6 +5,8 @@ defmodule Kairos.UserChannel do
   alias Kairos.{Repo, User}
 
   def join("users:" <> user_id, _params, socket) do
+    Logger.info "Joined to UserChannel"
+
     current_user = socket.assigns.current_user
 
     if String.to_integer(user_id) == current_user.id do
@@ -15,6 +17,8 @@ defmodule Kairos.UserChannel do
   end
 
   def handle_in("user:update", params, socket) do
+    Logger.info "Updating user in UserChannel"
+
     current_user = socket.assigns.current_user
 
     current_user
@@ -34,7 +38,7 @@ defmodule Kairos.UserChannel do
     current_user = socket.assigns.current_user
 
     client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_tracker_api_token}
-    projects = client |> ExTracker.Projects.list
+    projects = client |> ExTracker.Projects.list(fields: ":default,current_velocity")
 
     {:reply, {:ok, %{projects: projects}}, socket}
   rescue

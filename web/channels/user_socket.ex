@@ -5,6 +5,7 @@ defmodule Kairos.UserSocket do
 
   # Channels
   channel "users:*", Kairos.UserChannel
+  channel "project:*", Kairos.ProjectChannel
 
   # Transports
   transport :websocket, Phoenix.Transports.WebSocket

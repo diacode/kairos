@@ -2,13 +2,9 @@ import { routeActions }                   from 'react-router-redux';
 import Constants                          from '../constants';
 import { Socket }                         from 'phoenix';
 import { httpGet, httpPost, httpDelete }  from '../utils';
+import User                               from '../utils/user';
 
 export function setCurrentUser(dispatch, user) {
-  dispatch({
-    type: Constants.CURRENT_USER,
-    currentUser: user,
-  });
-
   const socket = new Socket('/socket', {
     params: { token: localStorage.getItem('phoenixAuthToken') },
     logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data); },
@@ -19,11 +15,14 @@ export function setCurrentUser(dispatch, user) {
   const channel = socket.channel(`users:${user.id}`);
 
   if (channel.state != 'joined') {
-    channel.join().receive('ok', () => {
+    channel.join()
+    .receive('ok', () => {
+      user.channel = channel;
+
       dispatch({
-          type: Constants.SOCKET_CONNECTED,
+          type: Constants.CURRENT_USER,
+          currentUser: new User(user),
           socket: socket,
-          channel: channel,
         });
     });
   }
@@ -81,7 +80,7 @@ const Actions = {
         channel.leave();
         socket.disconnect();
 
-        dispatch({ type: Constants.USER_SIGNED_OUT, });
+        dispatch({ type: Constants.USER_SIGNED_OUT });
 
         dispatch(routeActions.push('/sign_in'));
       })

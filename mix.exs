@@ -52,7 +52,8 @@ defmodule Kairos.Mixfile do
       {:guardian, "~> 0.10.0"},
       {:credo, "~> 0.2", only: [:dev, :test]},
       {:poison, "~> 2.0", override: true},
-      {:extracker, github: "dashofcode/extracker"}
+      {:extracker, github: "dashofcode/extracker"},
+      {:hound, "~> 0.8"}
     ]
   end
 
