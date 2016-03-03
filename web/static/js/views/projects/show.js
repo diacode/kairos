@@ -14,22 +14,29 @@ export default class ProjectsShowView extends React.Component {
   componentWillUnmount() {
     const { dispatch, channel } = this.props;
 
-    channel.leave();
+    if (channel != null)channel.leave();
 
     dispatch(reset());
   }
 
   _fetchProject(props) {
-    const { params, dispatch, socket, currentUser, channel } = props;
+    const { params, dispatch, socket, currentUser, channel, error } = props;
 
-    if (!currentUser || !currentUser.canFetchProjects() || channel != null) return false;
+    if (!currentUser || !currentUser.canFetchProjects() || channel != null || error != null) return false;
 
     dispatch(fetchProject(socket, params.id));
   }
 
-  render() {
-    const { currentUser, name, stories, id } = this.props;
+  _renderError(error) {
+    return (
+      <div className="error">{error}</div>
+    );
+  }
 
+  render() {
+    const { currentUser, name, stories, id, error } = this.props;
+
+    if (error != null) return this._renderError(error);
     if (id === undefined) return false;
 
     return (
