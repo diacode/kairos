@@ -7,11 +7,11 @@ import OnboardingForm                   from '../../components/onboarding';
 import ProjectCard                      from '../../components/projects/card';
 
 class HomeIndexView extends React.Component {
+  componentDidMount() {
+    this._fetchProjects(this.props);
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { currentUser } = nextProps;
-
-    if (!currentUser) return false;
-
     this._fetchProjects(nextProps);
   }
 
@@ -69,10 +69,6 @@ class HomeIndexView extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.props;
-
-    if (!currentUser) return false;
-
     return (
       <div className="view-container home index">
         {::this._renderProjects()}

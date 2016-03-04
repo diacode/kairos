@@ -11,10 +11,6 @@ class Header extends React.Component {
   _renderCurrentUser() {
     const { currentUser } = this.props;
 
-    if (!currentUser) {
-      return false;
-    }
-
     return (
       <a className="current-user">
         <ReactGravatar className="react-gravatar" email={currentUser.email} https /> {currentUser.firstName}

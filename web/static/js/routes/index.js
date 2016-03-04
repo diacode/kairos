@@ -7,7 +7,6 @@ import RegistrationsNew         from '../views/registrations/new';
 import SessionsNew              from '../views/sessions/new';
 import SettingsIndexView        from '../views/settings/index';
 import ProjectsShowView         from '../views/projects/show';
-import { fetchProjects }        from '../actions/projects';
 import Actions                  from '../actions/sessions';
 
 export default function configRoutes(store) {
@@ -25,22 +24,13 @@ export default function configRoutes(store) {
     callback();
   };
 
-  const _fetchProjects = (nextState, replace) => {
-    const { session } = store.getState();
-    const { currentUser } = session;
-
-    if (!currentUser || !currentUser.canFetchProjects()) return false;
-
-    store.dispatch(fetchProjects(currentUser.channel));
-  };
-
   return (
     <Route component={MainLayout}>
       <Route path="/sign_up" component={RegistrationsNew} />
       <Route path="/sign_in" component={SessionsNew} />
 
       <Route path="/" component={AuthenticatedContainer} onEnter={_ensureAuthenticated}>
-        <IndexRoute component={HomeIndexView} onEnter={_fetchProjects} />
+        <IndexRoute component={HomeIndexView} />
         <Route path="projects/:id" component={ProjectsShowView} />
 
         <Route path="settings" component={SettingsIndexView} />

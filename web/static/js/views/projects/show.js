@@ -22,7 +22,7 @@ export default class ProjectsShowView extends React.Component {
   _fetchProject(props) {
     const { params, dispatch, socket, currentUser, channel, error } = props;
 
-    if (!currentUser || !currentUser.canFetchProjects() || channel != null || error != null) return false;
+    if (!currentUser.canFetchProjects() || channel != null || error != null) return false;
 
     dispatch(fetchProject(socket, params.id));
   }
