@@ -9,10 +9,12 @@ defmodule Kairos.ProjectChannel do
 
     client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_tracker_api_token}
     project = ExTracker.Projects.find(client, project_id)
-    stories = ExTracker.Stories.list(client, project_id)
+    stories = Kairos.Fetch.stories(client, project_id)
 
     {:ok, %{project: project, stories: stories}, socket}
   rescue
-    _ -> {:error, %{reason: "Error retrieving project from Pivotal Tracker"}}
+    error ->
+      Logger.error error
+      {:error, %{reason: "Error retrieving project from Pivotal Tracker"}}
   end
 end
