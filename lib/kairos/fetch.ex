@@ -17,14 +17,15 @@ defmodule Kairos.Fetch do
   def stories(client, project_id, offset, items) do
     Logger.info "Fetching for project #{project_id} with offset #{offset}"
 
-    new_items = get_stories(client, project_id, offset: offset)
-    append(client, project_id, offset, new_items, items)
+    client
+    |> get_stories(project_id, offset: offset)
+    |> append(items, client, project_id, offset)
   end
 
-  defp append(client, project_id, offset, new_items, items) when length(new_items) == @limit do
+  defp append(new_items, items, client, project_id, offset) when length(new_items) == @limit do
     stories(client, project_id, offset + @limit, items ++ new_items)
   end
-  defp append(_client, _project_id, _offset, new_items, items), do: items ++ new_items
+  defp append(new_items, items, _, _, _), do: items ++ new_items
 
   defp get_stories(client, project_id, offset: offset) do
     ExTracker.Stories.list(client, project_id, offset: offset, limit: @limit)
