@@ -22,7 +22,7 @@ defmodule Kairos.UserChannel do
     current_user = socket.assigns.current_user
 
     current_user
-    |> User.update_changeset(params)
+    |> User.changeset(params)
     |> Repo.update
     |> case do
       {:ok, user} ->
