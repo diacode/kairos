@@ -7,6 +7,7 @@ defmodule Kairos.Repo.Migrations.CreateUser do
       add :last_name, :string
       add :email, :string, null: false
       add :encrypted_password, :string, null: false
+      add :admin, :boolean, default: false
 
       timestamps
     end
