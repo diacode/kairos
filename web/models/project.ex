@@ -5,12 +5,12 @@ defmodule Kairos.Project do
     field :name, :string
     field :description, :string
     field :pivotal_tracker_id, :integer
-    field :toggle_id, :integer
+    field :toggl_id, :integer
 
     timestamps
   end
 
-  @required_fields ~w(name description pivotal_tracker_id toggle_id)
+  @required_fields ~w(name description pivotal_tracker_id toggl_id)
   @optional_fields ~w()
 
   @doc """
