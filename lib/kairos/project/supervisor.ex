@@ -7,7 +7,7 @@ defmodule Kairos.Project.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Kairos.Project, [], restart: :permanent)
+      worker(Kairos.Project.Server, [], restart: :permanent)
     ]
 
     supervise(children, strategy: :simple_one_for_one)

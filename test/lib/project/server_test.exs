@@ -1,11 +1,11 @@
-defmodule Kairos.ProjectTest do
+defmodule Kairos.Project.ServerTest do
   use ExUnit.Case, async: true
 
-  alias Kairos.Project
+  alias Kairos.Project.Server
 
   setup do
     project_id = :crypto.strong_rand_bytes(32) |> Base.encode64()
-    {:ok, pid} = Project.create(project_id)
+    {:ok, pid} = Server.create(project_id)
 
     {:ok, project_id: project_id, pid: pid}
   end
@@ -15,7 +15,7 @@ defmodule Kairos.ProjectTest do
   end
 
   test "it has a list of time entries", %{project_id: project_id} do
-    assert %{user_stories: user_stories} = Project.state(project_id)
+    assert %{user_stories: user_stories} = Server.state(project_id)
     assert is_list(user_stories)
   end
 end

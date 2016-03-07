@@ -1,4 +1,4 @@
-defmodule Kairos.Project do
+defmodule Kairos.Project.Server do
   use GenServer
 
   @doc """
@@ -7,13 +7,13 @@ defmodule Kairos.Project do
   """
   def create(project_id) do
     case GenServer.whereis(ref(project_id)) do
-      nil -> Supervisor.start_child(__MODULE__.Supervisor, [project_id])
+      nil -> Supervisor.start_child(Kairos.Project.Supervisor, [project_id])
       project -> project
     end
   end
 
   def start_link(project_id) do
-    GenServer.start_link(__MODULE__, %{}, name: ref(project_id))
+    GenServer.start_link(Kairos.Project.Server, %{}, name: ref(project_id))
   end
 
   @doc """
