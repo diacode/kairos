@@ -6,6 +6,7 @@ import HomeIndexView            from '../views/home';
 import RegistrationsNew         from '../views/registrations/new';
 import SessionsNew              from '../views/sessions/new';
 import SettingsIndexView        from '../views/settings/index';
+import ProjectsCreateView       from '../views/projects/create';
 import ProjectsShowView         from '../views/projects/show';
 import Actions                  from '../actions/sessions';
 
@@ -31,6 +32,7 @@ export default function configRoutes(store) {
 
       <Route path="/" component={AuthenticatedContainer} onEnter={_ensureAuthenticated}>
         <IndexRoute component={HomeIndexView} />
+        <Route path="projects/create" component={ProjectsCreateView} />
         <Route path="projects/:id" component={ProjectsShowView} />
 
         <Route path="settings" component={SettingsIndexView} />
