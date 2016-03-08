@@ -18,10 +18,8 @@ defmodule Kairos.Project.Starter do
   def init(_) do
     projects = Project
       |> Repo.all
-      |> Enum.map(fn (project) ->
-          Kairos.Project.Server.create(project)
-          project.id
-        end)
+      |> Enum.map(&do_start_project/1)
+      |> Enum.map(&Task.await/1)
 
     {:ok, %{projects: projects}}
   end
@@ -30,5 +28,14 @@ defmodule Kairos.Project.Starter do
     Kairos.Project.Server.create(project)
 
     {:noreply, %{state | projects: [project.id | projects]}}
+  end
+
+  defp do_start_project(project) do
+    Task.async(
+      fn ->
+        Kairos.Project.Server.create(project)
+        project.id
+      end
+    )
   end
 end
