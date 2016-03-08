@@ -13,6 +13,10 @@ export default function reducer(state = initialState, action = {}) {
         pivotalTrackerProjects: action.pivotalTrackerProjects,
         togglProjects: action.togglProjects,
       };
+
+    case Constants.PROJECT_FORM_RESET:
+      return { ...initialState };
+
     default:
       return state;
   }
