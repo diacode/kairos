@@ -14,10 +14,12 @@ class ProjectsCreateView extends React.Component {
     dispatch(fetchExternalProjects(currentUser));
   }
 
-  _renderPivotaTrackerProjects() {
-  }
-
-  _renderTogglProjects() {
+  _renderOptions(projects) {
+    return projects.map((project) => {
+      return (
+        <option key={project.id} value={project.id}>{project.name}</option>
+      );
+    });
   }
 
   render() {
@@ -42,13 +44,13 @@ class ProjectsCreateView extends React.Component {
           <div className="inputs">
             <label>Pivotal Tracker Project</label>
             <select ref="pivotal_tracker_id">
-              {::this._renderPivotaTrackerProjects()}
+              {::this._renderOptions(pivotalTrackerProjects)}
             </select>
           </div>
           <div className="inputs">
             <label>Toggl Project</label>
             <select ref="togglProjectsgl_id">
-              {::this._renderTogglProjects()}
+            {::this._renderOptions(togglProjects)}
             </select>
           </div>
           <div className="actions">
