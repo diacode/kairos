@@ -28,7 +28,7 @@ defmodule Kairos.UserChannel do
       {:ok, user} ->
         {:reply, {:ok, %{user: user}}, assign(socket, :current_user, user)}
       {:error, _changeset} ->
-        {:reply, {:error,%{reason: "Invalid"}}, socket}
+        {:reply, {:error, %{reason: "Invalid"}}, socket}
     end
   end
 
@@ -47,5 +47,23 @@ defmodule Kairos.UserChannel do
     projects = Kairos.Project.Fetcher.get_projects
 
     {:reply, {:ok, projects}, socket}
+  end
+
+  def handle_in("user:create_project", %{"project" => params}, socket) do
+    Logger.info "Crating new project in UserChannel"
+
+    current_user = socket.assigns.current_user
+
+    case current_user.admin do
+      true ->
+        project = %Project{}
+          |> Project.changeset(params)
+          |> Repo.insert!
+
+        {:reply, {:ok, %{project: project}}, socket}
+
+      false ->
+        {:reply, {:error, %{reason: "Forbidden"}}, socket}
+    end
   end
 end

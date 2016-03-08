@@ -1,4 +1,5 @@
-import Constants from '../constants';
+import { push }   from 'react-router-redux';
+import Constants  from '../constants';
 
 export function fetchExternalProjects(currentUser) {
   return dispatch => {
@@ -10,5 +11,20 @@ export function fetchExternalProjects(currentUser) {
         togglProjects: payload.toggl_projects,
       });
     });
+  };
+}
+
+export function createProject(currentUser, data) {
+  return dispatch => {
+    currentUser.channel.push('user:create_project', { project: data })
+    .receive('ok', (payload) => {
+      dispatch(push(`/projects/${payload.project.id}`));
+    });
+  };
+}
+
+export function reset() {
+  return {
+    type: Constants.PROJECT_FORM_RESET,
   };
 }
