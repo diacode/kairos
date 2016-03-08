@@ -46,4 +46,10 @@ defmodule Kairos.UserChannel do
     _ ->
       {:reply, {:error, %{reason: "Error in API call"}}, socket}
   end
+
+  def handle_in("user:external_projects", _params, socket) do
+    Logger.info "Requesting external projects in UserChannel"
+
+    {:reply, {:ok, %{pivotal_tracker_projects: [], toggl_projects: []}}, socket}
+  end
 end
