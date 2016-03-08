@@ -35,21 +35,17 @@ defmodule Kairos.UserChannel do
   def handle_in("user:projects", _params, socket) do
     Logger.info "Requesting projects from UserChannel"
 
-    # client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_tracker_api_token}
-    # projects = client |> ExTracker.Projects.list(fields: ":default,current_velocity")
-
     projects = Project
       |> Repo.all
 
     {:reply, {:ok, %{projects: projects}}, socket}
-  rescue
-    _ ->
-      {:reply, {:error, %{reason: "Error in API call"}}, socket}
   end
 
   def handle_in("user:external_projects", _params, socket) do
     Logger.info "Requesting external projects in UserChannel"
 
-    {:reply, {:ok, %{pivotal_tracker_projects: [], toggl_projects: []}}, socket}
+    projects = Kairos.Project.Fetcher.get_projects
+
+    {:reply, {:ok, projects}, socket}
   end
 end
