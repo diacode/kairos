@@ -11,11 +11,11 @@ class SettingsIndexView extends React.Component {
   _handleFormSubmit(e) {
     e.preventDefault();
 
-    const { pivotalTrackerApiToken, togglApiToken } = this.refs;
+    const { firstName, lastName } = this.refs;
     const data = {
-      settings: {
-        pivotal_tracker_api_token: pivotalTrackerApiToken.value.trim(),
-        toggle_api_token: togglApiToken.value.trim(),
+      user: {
+        first_name: firstName.value.trim(),
+        last_name: lastName.value.trim(),
       },
     };
     const { currentUser, dispatch } = this.props;
@@ -25,17 +25,14 @@ class SettingsIndexView extends React.Component {
 
   render() {
     const { currentUser } = this.props;
-    const { settings } = currentUser;
-    const pivotalTrackerApiToken = settings ? settings.pivotal_tracker_api_token : '';
-    const togglApiToken = settings ? settings.toggle_api_token : '';
 
     return (
       <div>
         <form onSubmit={::this._handleFormSubmit}>
-          <label htmlFor="pivotalTrackerApiToken">Pivotal Tracker API token</label>
-          <input type="text" ref="pivotalTrackerApiToken" defaultValue={pivotalTrackerApiToken}/>
-          <label htmlFor="togglApiToken">Toggle API token</label>
-          <input type="text" ref="togglApiToken" defaultValue={togglApiToken}/>
+          <label htmlFor="firstName">First name</label>
+          <input type="text" ref="firstName" defaultValue={currentUser.firstName}/>
+          <label htmlFor="lastName">Last name</label>
+          <input type="text" ref="lastName" defaultValue={currentUser.lastName}/>
           <button type="submit">Save</button>
         </form>
       </div>
