@@ -1,6 +1,7 @@
 import React                            from 'react';
 import { connect }                      from 'react-redux';
 import classnames                       from 'classnames';
+import { Link }                         from 'react-router';
 import { setDocumentTitle }             from '../../utils';
 import { setProjects, fetchProjects }   from '../../actions/projects';
 import ProjectCard                      from '../../components/projects/card';
@@ -58,10 +59,21 @@ class HomeIndexView extends React.Component {
     );
   }
 
+  _renderAddNewProject() {
+    const { currentUser } = this.props;
+
+    if (!currentUser.admin) return false;
+
+    return (
+      <Link to="/projects/create">Create new project</Link>
+    );
+  }
+
   render() {
     return (
       <div className="view-container home index">
         {::this._renderProjects()}
+        {::this._renderAddNewProject()}
       </div>
     );
   }
