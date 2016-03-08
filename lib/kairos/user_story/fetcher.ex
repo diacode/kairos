@@ -1,4 +1,4 @@
-defmodule Kairos.Fetch do
+defmodule Kairos.UserStory.Fetcher do
   @moduledoc """
   Wrapper for the API libraries for handling lists with multiple items which
   might need multiple requests for fetching all of them.
