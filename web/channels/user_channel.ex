@@ -60,6 +60,8 @@ defmodule Kairos.UserChannel do
           |> Project.changeset(params)
           |> Repo.insert!
 
+        Kairos.Project.Starter.start_project(project)
+
         {:reply, {:ok, %{project: project}}, socket}
 
       false ->
