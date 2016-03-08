@@ -25,3 +25,4 @@ erl_crash.dump
 /config/test.secret.exs
 /priv/static/css/app.css
 /priv/static/js/app.js
+dev.secret.exs

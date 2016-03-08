@@ -44,3 +44,6 @@ config :kairos, Kairos.Repo,
 # Guardian configuration
 config :guardian, Guardian,
   secret_key: "Y8+P3Plvr/7bDo38ySz5s8K1hRpzERiDmmjw4v7W+7EQ2XAFG/qdZhE0xFE8Be8D"
+
+
+import_config "dev.secret.exs"
