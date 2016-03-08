@@ -1,6 +1,8 @@
 defmodule Kairos.Project do
   use Kairos.Web, :model
 
+  @derive {Poison.Encoder, only: [:id, :name, :description, :pivotal_tracker_id, :toggl_id]}
+
   schema "projects" do
     field :name, :string
     field :description, :string

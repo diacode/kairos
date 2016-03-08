@@ -2,7 +2,7 @@ defmodule Kairos.UserChannel do
   use Kairos.Web, :channel
   require Logger
 
-  alias Kairos.{Repo, User}
+  alias Kairos.{Repo, User, Project}
 
   def join("users:" <> user_id, _params, socket) do
     Logger.info "Joined to UserChannel"
@@ -37,8 +37,11 @@ defmodule Kairos.UserChannel do
 
     current_user = socket.assigns.current_user
 
-    client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_tracker_api_token}
-    projects = client |> ExTracker.Projects.list(fields: ":default,current_velocity")
+    # client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_tracker_api_token}
+    # projects = client |> ExTracker.Projects.list(fields: ":default,current_velocity")
+
+    projects = Project
+      |> Repo.all
 
     {:reply, {:ok, %{projects: projects}}, socket}
   rescue
