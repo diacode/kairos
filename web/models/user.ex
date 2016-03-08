@@ -16,6 +16,7 @@ defmodule Kairos.User do
   end
 
   @required_fields ~w(first_name email password)
+  @update_required_fields ~w(first_name)
   @optional_fields ~w(encrypted_password last_name admin)
 
   @doc """
@@ -31,6 +32,11 @@ defmodule Kairos.User do
     |> validate_length(:password, min: 5)
     |> unique_constraint(:email, message: "Email already taken")
     |> generate_encrypted_password
+  end
+
+  def update_changeset(model, params \\ :empty) do
+    model
+    |> cast(params, @update_required_fields, @optional_fields)
   end
 
   defp generate_encrypted_password(current_changeset) do
