@@ -30,7 +30,6 @@ defmodule Kairos.Project.Server do
     try_call(project_id, :state)
   end
 
-
   defp try_call(project_id, call_function) do
     case GenServer.whereis(ref(project_id)) do
       nil -> {:error, :invalid_project}
