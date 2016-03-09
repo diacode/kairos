@@ -45,5 +45,13 @@ config :kairos, Kairos.Repo,
 config :guardian, Guardian,
   secret_key: "Y8+P3Plvr/7bDo38ySz5s8K1hRpzERiDmmjw4v7W+7EQ2XAFG/qdZhE0xFE8Be8D"
 
+# Mix test watch configuration
+config :mix_test_watch,
+  clear: true,
+  tasks: [
+    "test",
+    "credo list --format=oneline",
+  ]
+
 
 import_config "dev.secret.exs"
