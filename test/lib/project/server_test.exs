@@ -4,9 +4,11 @@ defmodule Kairos.Project.ServerTest do
   alias Kairos.{Repo, Project}
   alias Kairos.Project.Server
 
+  @pivotal_tracker_project_id Application.get_env(:kairos, :pivotal_tracker_project_id)
+
   setup do
     project = %Project{}
-      |> Project.changeset(%{name: "Test", pivotal_tracker_id: "1027488", toggl_id: "123456"})
+      |> Project.changeset(%{name: "Test", pivotal_tracker_id: @pivotal_tracker_project_id, toggl_id: "123456"})
       |> Repo.insert!
 
     {:ok, pid} = Server.create(project)
