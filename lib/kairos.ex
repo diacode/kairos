@@ -11,9 +11,10 @@ defmodule Kairos do
       supervisor(Kairos.Endpoint, []),
       # Start the Ecto repository
       supervisor(Kairos.Repo, []),
+      supervisor(Kairos.Project.Supervisor, []),
       # Here you could define other workers and supervisors as children
       # worker(Kairos.Worker, [arg1, arg2, arg3]),
-      supervisor(Kairos.Project.Supervisor, [])
+      worker(Kairos.Project.Starter, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

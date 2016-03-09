@@ -5,6 +5,7 @@ import registration         from './registration';
 import header               from './header';
 import projects             from './projects';
 import currentProject       from './current_project';
+import projectForm          from './project_form';
 
 export default combineReducers({
   routing: routeReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   header: header,
   projects: projects,
   currentProject: currentProject,
+  projectForm: projectForm,
 });

@@ -2,7 +2,7 @@ defmodule Kairos.UserChannel do
   use Kairos.Web, :channel
   require Logger
 
-  alias Kairos.{Repo, User}
+  alias Kairos.{Repo, User, Project}
 
   def join("users:" <> user_id, _params, socket) do
     Logger.info "Joined to UserChannel"
@@ -16,7 +16,7 @@ defmodule Kairos.UserChannel do
     end
   end
 
-  def handle_in("user:update", params, socket) do
+  def handle_in("user:update", %{"user" => params}, socket) do
     Logger.info "Updating user in UserChannel"
 
     current_user = socket.assigns.current_user
@@ -28,21 +28,44 @@ defmodule Kairos.UserChannel do
       {:ok, user} ->
         {:reply, {:ok, %{user: user}}, assign(socket, :current_user, user)}
       {:error, _changeset} ->
-        {:reply, {:error,%{reason: "Invalid"}}, socket}
+        {:reply, {:error, %{reason: "Invalid"}}, socket}
     end
   end
 
   def handle_in("user:projects", _params, socket) do
     Logger.info "Requesting projects from UserChannel"
 
-    current_user = socket.assigns.current_user
-
-    client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_tracker_api_token}
-    projects = client |> ExTracker.Projects.list(fields: ":default,current_velocity")
+    projects = Project
+      |> Repo.all
 
     {:reply, {:ok, %{projects: projects}}, socket}
-  rescue
-    _ ->
-      {:reply, {:error, %{reason: "Error in API call"}}, socket}
+  end
+
+  def handle_in("user:external_projects", _params, socket) do
+    Logger.info "Requesting external projects in UserChannel"
+
+    projects = Kairos.Project.Fetcher.get_projects
+
+    {:reply, {:ok, projects}, socket}
+  end
+
+  def handle_in("user:create_project", %{"project" => params}, socket) do
+    Logger.info "Crating new project in UserChannel"
+
+    current_user = socket.assigns.current_user
+
+    case current_user.admin do
+      true ->
+        project = %Project{}
+          |> Project.changeset(params)
+          |> Repo.insert!
+
+        Kairos.Project.Starter.start_project(project)
+
+        {:reply, {:ok, %{project: project}}, socket}
+
+      false ->
+        {:reply, {:error, %{reason: "Forbidden"}}, socket}
+    end
   end
 end

@@ -37,7 +37,7 @@ export default class ProjectsShowView extends React.Component {
     const { currentUser, name, stories, id, error } = this.props;
 
     if (error != null) return this._renderError(error);
-    if (id === undefined) return false;
+    if (id === undefined) return null;
 
     return (
       <div>

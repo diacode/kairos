@@ -1,26 +1,23 @@
 defmodule Kairos.User do
   use Kairos.Web, :model
 
-  alias Kairos.User.Settings
-
-  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :email, :settings]}
+  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :email, :admin]}
 
   schema "users" do
     field :first_name, :string
     field :last_name, :string
     field :email, :string
+    field :admin, :boolean
     field :encrypted_password, :string
 
     field :password, :string, virtual: true
-
-    embeds_one :settings, Settings, on_replace: :delete
 
     timestamps
   end
 
   @required_fields ~w(first_name email password)
-  @update_required_fields ~w(first_name email)
-  @optional_fields ~w(encrypted_password last_name)
+  @update_required_fields ~w(first_name)
+  @optional_fields ~w(encrypted_password last_name admin)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -40,9 +37,6 @@ defmodule Kairos.User do
   def update_changeset(model, params \\ :empty) do
     model
     |> cast(params, @update_required_fields, @optional_fields)
-    |> cast_embed(:settings, required: false)
-    |> validate_format(:email, ~r/@/)
-    |> unique_constraint(:email, message: "Email already taken")
   end
 
   defp generate_encrypted_password(current_changeset) do

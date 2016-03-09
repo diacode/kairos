@@ -1,19 +1,26 @@
-defmodule Kairos.Project do
+defmodule Kairos.Project.Server do
   use GenServer
 
   @doc """
   Creates a new Project process if it doesn't exist. If it's been previously
   created it returns it.
   """
-  def create(project_id) do
-    case GenServer.whereis(ref(project_id)) do
-      nil -> Supervisor.start_child(__MODULE__.Supervisor, [project_id])
-      project -> project
+  def create(project) do
+    case GenServer.whereis(ref(project.id)) do
+      nil -> Supervisor.start_child(Kairos.Project.Supervisor, [project])
+      server -> server
     end
   end
 
-  def start_link(project_id) do
-    GenServer.start_link(__MODULE__, %{}, name: ref(project_id))
+  def start_link(project) do
+    GenServer.start_link(Kairos.Project.Server, project, name: ref(project.id))
+  end
+
+  def init(project) do
+    stories = project.pivotal_tracker_id
+      |> Kairos.Story.Fetcher.get_stories
+
+    {:ok, %{project: project, stories: stories}}
   end
 
   @doc """
@@ -21,12 +28,6 @@ defmodule Kairos.Project do
   """
   def state(project_id) do
     try_call(project_id, :state)
-  end
-
-  def init(_) do
-    # TODO load time entries from Extracker
-    user_stories = []
-    {:ok, %{user_stories: user_stories, }}
   end
 
   defp try_call(project_id, call_function) do

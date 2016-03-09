@@ -1,9 +1,9 @@
 import React                            from 'react';
 import { connect }                      from 'react-redux';
 import classnames                       from 'classnames';
+import { Link }                         from 'react-router';
 import { setDocumentTitle }             from '../../utils';
 import { setProjects, fetchProjects }   from '../../actions/projects';
-import OnboardingForm                   from '../../components/onboarding';
 import ProjectCard                      from '../../components/projects/card';
 
 class HomeIndexView extends React.Component {
@@ -32,15 +32,6 @@ class HomeIndexView extends React.Component {
   _renderProjects() {
     const { projects, fetching, currentUser, dispatch, channel } = this.props;
 
-    if (!currentUser.hasValidSettings()) {
-      return (
-        <OnboardingForm
-          currentUser={currentUser}
-          dispatch={dispatch}
-          channel={channel} />
-      );
-    }
-
     if (fetching) return this._renderFetching();
     if (projects === null) return false;
 
@@ -68,10 +59,21 @@ class HomeIndexView extends React.Component {
     );
   }
 
+  _renderAddNewProject() {
+    const { currentUser } = this.props;
+
+    if (!currentUser.admin) return false;
+
+    return (
+      <Link to="/projects/create">Create new project</Link>
+    );
+  }
+
   render() {
     return (
       <div className="view-container home index">
         {::this._renderProjects()}
+        {::this._renderAddNewProject()}
       </div>
     );
   }

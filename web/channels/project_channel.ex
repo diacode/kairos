@@ -5,16 +5,10 @@ defmodule Kairos.ProjectChannel do
   def join("project:" <> project_id, _params, socket) do
     Logger.info "Joined to ProjectChannel"
 
-    current_user = socket.assigns.current_user
+    %{project: project, stories: stories} = project_id
+      |> String.to_integer
+      |> Kairos.Project.Server.state
 
-    client = ExTracker.Client.new %{access_token: current_user.settings.pivotal_tracker_api_token}
-    project = ExTracker.Projects.find(client, project_id)
-    stories = Kairos.Fetch.stories(client, project_id)
-
-    {:ok, %{project: project, stories: stories}, socket}
-  rescue
-    error ->
-      Logger.error error
-      {:error, %{reason: "Error retrieving project from Pivotal Tracker"}}
+    {:ok, %{project: project, stories: stories}, assign(socket, :project, project)}
   end
 end
