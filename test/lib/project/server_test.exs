@@ -1,13 +1,17 @@
 defmodule Kairos.Project.ServerTest do
   use ExUnit.Case, async: true
 
+  alias Kairos.{Repo, Project}
   alias Kairos.Project.Server
 
   setup do
-    project_id = :crypto.strong_rand_bytes(32) |> Base.encode64()
-    {:ok, pid} = Server.create(project_id)
+    project = %Project{}
+      |> Project.changeset(%{name: "Test", pivotal_tracker_id: "1027488", toggl_id: "123456"})
+      |> Repo.insert!
 
-    {:ok, project_id: project_id, pid: pid}
+    {:ok, pid} = Server.create(project)
+
+    {:ok, project_id: project.id, pid: pid}
   end
 
   test "it creates a new Poject process", %{pid: pid} do
@@ -15,7 +19,7 @@ defmodule Kairos.Project.ServerTest do
   end
 
   test "it has a list of time entries", %{project_id: project_id} do
-    assert %{user_stories: user_stories} = Server.state(project_id)
-    assert is_list(user_stories)
+    assert %{stories: stories} = Server.state(project_id)
+    assert is_list(stories)
   end
 end

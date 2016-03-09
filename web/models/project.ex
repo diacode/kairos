@@ -12,8 +12,8 @@ defmodule Kairos.Project do
     timestamps
   end
 
-  @required_fields ~w(name description pivotal_tracker_id toggl_id)
-  @optional_fields ~w()
+  @required_fields ~w(name pivotal_tracker_id toggl_id)
+  @optional_fields ~w(description)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

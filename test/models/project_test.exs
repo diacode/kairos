@@ -3,7 +3,7 @@ defmodule Kairos.ProjectTest do
 
   alias Kairos.Project
 
-  @valid_attrs %{description: "some content", name: "some content", pivotal_tracker_id: 42, toggle_id: 42}
+  @valid_attrs %{description: "some content", name: "some content", pivotal_tracker_id: 42, toggl_id: 42}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
