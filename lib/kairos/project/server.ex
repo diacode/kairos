@@ -26,8 +26,8 @@ defmodule Kairos.Project.Server do
   @doc """
   Returns the state of the process
   """
-  def state(project_id) do
-    try_call(project_id, :state)
+  def get_state(project_id) do
+    try_call(project_id, :get_state)
   end
 
   defp try_call(project_id, call_function) do
@@ -37,7 +37,7 @@ defmodule Kairos.Project.Server do
     end
   end
 
-  def handle_call(:state, _from, state) do
+  def handle_call(:get_state, _from, state) do
     {:reply, state, state}
   end
 

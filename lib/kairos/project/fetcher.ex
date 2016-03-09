@@ -21,11 +21,11 @@ defmodule Kairos.Project.Fetcher do
     client = ExTracker.Client.new %{access_token: @pivotal_tracker_api_token}
     projects = client |> ExTracker.Projects.list(fields: ":default,current_velocity")
 
-    {:pivotal_tracker_projects, projects }
+    {:pivotal_tracker_projects, projects}
   rescue
     _ ->
       Logger.error("Error fetching Pivotal Tracker projects")
-      {:pivotal_tracker_projects, [] }
+      {:pivotal_tracker_projects, []}
   end
 
   def get_toggl_projects do

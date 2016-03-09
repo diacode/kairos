@@ -5,14 +5,14 @@ defmodule Kairos.CurrentUserController do
 
   def show(conn, _) do
     case decode_and_verify_token(conn) do
-      { :ok, _claims } ->
+      {:ok, _claims} ->
         user = Guardian.Plug.current_resource(conn)
 
         conn
         |> put_status(:ok)
         |> render("show.json", user: user)
 
-      { :error, _reason } ->
+      {:error, _reason} ->
         conn
         |> put_status(:not_found)
         |> render(Kairos.SessionView, "error.json", error: "Not Found")

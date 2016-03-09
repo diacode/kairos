@@ -54,18 +54,16 @@ defmodule Kairos.UserChannel do
 
     current_user = socket.assigns.current_user
 
-    case current_user.admin do
-      true ->
-        project = %Project{}
-          |> Project.changeset(params)
-          |> Repo.insert!
+    if current_user.admin do
+      project = %Project{}
+        |> Project.changeset(params)
+        |> Repo.insert!
 
-        Kairos.Project.Starter.start_project(project)
+      Kairos.Project.Starter.start_project(project)
 
-        {:reply, {:ok, %{project: project}}, socket}
-
-      false ->
-        {:reply, {:error, %{reason: "Forbidden"}}, socket}
+      {:reply, {:ok, %{project: project}}, socket}
+    else
+      {:reply, {:error, %{reason: "Forbidden"}}, socket}
     end
   end
 end

@@ -7,7 +7,7 @@ defmodule Kairos.ProjectChannel do
 
     %{project: project, stories: stories} = project_id
       |> String.to_integer
-      |> Kairos.Project.Server.state
+      |> Kairos.Project.Server.get_state
 
     {:ok, %{project: project, stories: stories}, assign(socket, :project, project)}
   end

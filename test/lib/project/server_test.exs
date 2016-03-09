@@ -21,7 +21,7 @@ defmodule Kairos.Project.ServerTest do
   end
 
   test "it has a list of time entries", %{project_id: project_id} do
-    assert %{stories: stories} = Server.state(project_id)
+    assert %{stories: stories} = Server.get_state(project_id)
     assert is_list(stories)
   end
 end
