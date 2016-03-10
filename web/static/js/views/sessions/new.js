@@ -25,9 +25,9 @@ class SessionsNew extends React.Component {
     if (!error) return false;
 
     return (
-      <div className="error">
-        {error}
-      </div>
+      <ul className="errors-container">
+        <li>{error}</li>
+      </ul>
     );
   }
 
