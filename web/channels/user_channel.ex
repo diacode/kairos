@@ -38,7 +38,7 @@ defmodule Kairos.UserChannel do
     project_ids = Kairos.Project.Starter.projects
 
     projects = project_ids
-      |> Enum.map(&Kairos.Project.Server.get_state(&1))
+      |> Enum.map(&Kairos.Project.Server.get_data(&1))
 
     {:reply, {:ok, %{projects: projects}}, socket}
   end

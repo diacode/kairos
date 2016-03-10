@@ -1,6 +1,7 @@
 defmodule Kairos.Project.Server do
   use GenServer
   import Kairos.Project.Calculations
+  require Logger
 
   defstruct [
     id: nil,
@@ -30,6 +31,8 @@ defmodule Kairos.Project.Server do
   end
 
   def init(project) do
+    Logger.debug "Starting server for project #{project.id}"
+
     stories = get_stories(project.pivotal_tracker_id)
 
     state = %__MODULE__{
@@ -48,8 +51,8 @@ defmodule Kairos.Project.Server do
   @doc """
   Returns the state of the process
   """
-  def get_state(project_id) do
-    try_call(project_id, :get_state)
+  def get_data(project_id) do
+    try_call(project_id, :get_data)
   end
 
   defp try_call(project_id, call_function) do
@@ -59,7 +62,7 @@ defmodule Kairos.Project.Server do
     end
   end
 
-  def handle_call(:get_state, _from, state) do
+  def handle_call(:get_data, _from, state) do
     {:reply, state, state}
   end
 

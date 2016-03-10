@@ -7,7 +7,7 @@ defmodule Kairos.ProjectChannel do
 
     project_id
     |> String.to_integer
-    |> Kairos.Project.Server.get_state
+    |> Kairos.Project.Server.get_data
     |> case do
       {:error, :invalid_project} ->
         {:error, %{error: "Invalid project"}}
