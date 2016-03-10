@@ -40,7 +40,7 @@ class Header extends React.Component {
     return (
       <header className="main-header">
         <Link to='/'>
-          <div className="logo"></div>
+          <div className="logo-small"></div>
         </Link>
         <nav className="right">
           <ul>

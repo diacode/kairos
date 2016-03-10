@@ -33,22 +33,20 @@ class SessionsNew extends React.Component {
 
   render() {
     return (
-      <div className='view-container sessions new'>
+      <div id="sessions_new" className="view-container">
         <main>
           <header>
             <div className="logo" />
           </header>
           <form id="sign_in_form" onSubmit={::this._handleSubmit}>
             {::this._renderError()}
-            <div className="field">
+            <div className="field-wrapper">
               <input
                 ref="email"
                 type="Email"
                 id="user_email"
                 placeholder="Email"
                 required="true" />
-            </div>
-            <div className="field">
               <input
                 ref="password"
                 type="password"

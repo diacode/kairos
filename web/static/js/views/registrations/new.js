@@ -24,27 +24,33 @@ class RegistrationsNew extends React.Component {
     dispatch(Actions.signUp(data));
   }
 
+  _renderErrors(errors) {
+    if (!errors) return false;
+
+    return (
+      <ul className="errors-container">
+        <li>{renderErrorsFor(errors, 'first_name')}</li>
+        <li>{renderErrorsFor(errors, 'email')}</li>
+        <li>{renderErrorsFor(errors, 'password')}</li>
+      </ul>
+    );
+  }
+
   render() {
     const { errors } = this.props;
 
     return (
-      <div className="view-container registrations new">
+      <div id="registrations_new" className="view-container">
         <main>
           <header>
             <div className="logo" />
           </header>
           <form id="sign_up_form" onSubmit={::this._handleSubmit}>
-            <div className="field">
+            {::this._renderErrors(errors)}
+            <div className="field-wrapper">
               <input ref="firstName" id="user_first_name" type="text" placeholder="First name" required={true} />
-              {renderErrorsFor(errors, 'first_name')}
-            </div>
-            <div className="field">
               <input ref="email" id="user_email" type="email" placeholder="Email" required={true} />
-              {renderErrorsFor(errors, 'email')}
-            </div>
-            <div className="field">
               <input ref="password" id="user_password" type="password" placeholder="Password" required={true} />
-              {renderErrorsFor(errors, 'password')}
             </div>
             <button type="submit">Sign up</button>
           </form>
