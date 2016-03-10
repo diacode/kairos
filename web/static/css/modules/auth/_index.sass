@@ -1,0 +1,37 @@
+#sessions_new, #registrations_new
+  +display(flex)
+  +align-items(center)
+  +justify-content(center)
+  height: 100vh
+
+  main
+    width: 300px
+    text-align: center
+
+  header
+    margin-bottom: $base-spacing
+
+  .errors-container
+    margin-bottom: $small-spacing
+    text-align: left
+    color: $red
+
+  .field-wrapper
+    border: $base-border
+    border-radius: $base-border-radius
+    overflow: hidden
+    margin-bottom: $base-spacing
+
+    input
+      margin: 0
+      border: 0px none
+      border-radius: 0
+
+      &:not(:last-of-type)
+        border-bottom: $base-border
+
+  button
+    +fill-parent
+    text-transform: uppercase
+    font-weight: normal
+    margin-bottom: $base-spacing

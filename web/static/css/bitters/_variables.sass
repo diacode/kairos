@@ -17,17 +17,21 @@ $base-z-index: 0
 
 // Colors
 $blue: #1565c0
-$light-gray: #F6F6F6
-$dark-gray: shade($light-gray, 40)
-$medium-gray: shade($light-gray, 20)
+$gray: #B6B6B6
+$light-gray:tint($gray, 60)
+$dark-gray: shade($gray, 20)
 $green: #2C9B7F
+$brown: #795548
+$light-brown: tint($brown, 70)
+$dark-brown: shade($brown, 40)
+$red: #D32F2F
 
 // Font Colors
 $base-font-color: $dark-gray
-$action-color: $blue
+$action-color: $brown
 
 // Border
-$base-border-color: $light-gray
+$base-border-color: tint($gray, 20)
 $base-border: 1px solid $base-border-color
 $base-border-radius: 2px
 
@@ -36,7 +40,7 @@ $base-background-color: $light-gray
 $secondary-background-color: tint($base-border-color, 75%)
 
 // Forms
-$form-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+$form-box-shadow:  0 0 0
 $form-box-shadow-focus: 0 0 0
 
 // Animations
