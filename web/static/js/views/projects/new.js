@@ -6,7 +6,7 @@ import { fetchExternalProjects }  from '../../actions/project_form';
 import { createProject }          from '../../actions/project_form';
 import { reset }                  from '../../actions/project_form';
 
-class ProjectsCreateView extends React.Component {
+class ProjectsNewView extends React.Component {
   componentDidMount() {
     const { dispatch, currentUser } = this.props;
 
@@ -90,4 +90,4 @@ const mapStateToProps = (state) => (
   { ...state.session, ...state.projectForm }
 );
 
-export default connect(mapStateToProps)(ProjectsCreateView);
+export default connect(mapStateToProps)(ProjectsNewView);
