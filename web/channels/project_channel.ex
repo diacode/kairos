@@ -5,10 +5,10 @@ defmodule Kairos.ProjectChannel do
   def join("project:" <> project_id, _params, socket) do
     Logger.info "Joined to ProjectChannel"
 
-    %{project: project, stories: stories} = project_id
+    project = project_id
       |> String.to_integer
       |> Kairos.Project.Server.get_state
 
-    {:ok, %{project: project, stories: stories}, assign(socket, :project, project)}
+    {:ok, project, assign(socket, :project, project)}
   end
 end
