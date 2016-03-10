@@ -40,7 +40,7 @@ export default class ProjectsShowView extends React.Component {
     if (id === undefined) return null;
 
     return (
-      <div>
+      <div className="view-container">
         <h1>{name}</h1>
         <p>{stories.length} stories</p>
       </div>

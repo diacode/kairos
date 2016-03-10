@@ -9,6 +9,7 @@ import ProjectCard                      from '../../components/projects/card';
 
 class HomeIndexView extends React.Component {
   componentDidMount() {
+    setDocumentTitle('Projects');
     this._fetchProjects(this.props);
   }
 
@@ -85,7 +86,7 @@ class HomeIndexView extends React.Component {
 
   render() {
     return (
-      <div className="view-container home index">
+      <div className="view-container">
         {::this._renderProjects()}
       </div>
     );

@@ -27,7 +27,7 @@ class SettingsIndexView extends React.Component {
     const { currentUser } = this.props;
 
     return (
-      <div>
+      <div className="view-container">
         <form onSubmit={::this._handleFormSubmit}>
           <label htmlFor="firstName">First name</label>
           <input type="text" ref="firstName" defaultValue={currentUser.firstName}/>
