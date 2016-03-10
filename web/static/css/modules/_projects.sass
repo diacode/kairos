@@ -11,17 +11,24 @@
   .project-item
     +flex(0 0 25%)
     +align-self(stretch)
-    margin-bottom: 20px
     padding: 15px
+
+    header
+      border-bottom: 1px solid $light-brown
+      margin-bottom: $base-spacing
+
+    h2
+      text-transform: uppercase
+      text-align: center
 
     .inner
       +transition
-      background: white
+      background: #fff
       min-height: 300px
-      padding: $small-spacing
-      box-shadow: $base-box-shadow
+      padding: $base-spacing
+      border-radius: $base-border-radius
+      border: 1px solid $light-brown
       cursor: pointer
 
-      &:hover, &:focus
-        box-shadow: rgba(black, 0.45) 0px 0px 20px 0px
-        background: white
+      &:hover
+        box-shadow: 0 0 0 5px $light-brown

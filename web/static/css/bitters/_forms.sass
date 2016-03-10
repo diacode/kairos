@@ -21,7 +21,7 @@ select
   font-size: $base-font-size
 
 #{$all-text-inputs},
-select[multiple]
+select[multiple], select
   background-color: white
   border: $base-border
   border-radius: $base-border-radius
@@ -38,8 +38,8 @@ select[multiple]
     border-color: shade($base-border-color, 20%)
 
   &:focus
-    border-color: $action-color
-    box-shadow: $form-box-shadow-focus
+    // border-color: $action-color
+    // box-shadow: $form-box-shadow-focus
     outline: none
 
   &:disabled
@@ -65,6 +65,8 @@ textarea
   width: 100%
 
 select
+  +appearance(none)
   margin-bottom: $base-spacing
   max-width: 100%
   width: auto
+  line-height: 1.1em

@@ -11,12 +11,15 @@ export default class ProjectCard extends React.Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { name, description } = this.props;
 
     return (
       <li className="project-item" onClick={::this._handleClick}>
         <div className="inner">
-          <h2>{name}</h2>
+          <header>
+            <h2>{name}</h2>
+          </header>
+          <p>{description}</p>
         </div>
       </li>
     );

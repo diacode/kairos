@@ -36,7 +36,7 @@ class SessionsNew extends React.Component {
       <div id="sessions_new" className="view-container">
         <main>
           <header>
-            <div className="logo" />
+            <div className="logo-small" />
           </header>
           <form id="sign_in_form" onSubmit={::this._handleSubmit}>
             {::this._renderError()}

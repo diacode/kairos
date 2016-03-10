@@ -43,7 +43,7 @@ class RegistrationsNew extends React.Component {
       <div id="registrations_new" className="view-container">
         <main>
           <header>
-            <div className="logo" />
+            <div className="logo-small" />
           </header>
           <form id="sign_up_form" onSubmit={::this._handleSubmit}>
             {::this._renderErrors(errors)}
