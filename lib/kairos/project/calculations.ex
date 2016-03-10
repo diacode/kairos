@@ -5,7 +5,7 @@ defmodule Kairos.Project.Calculations do
 
   def total_story_points(stories) do
     stories
-    |> Enum.reduce(0, fn(story, acc) -> story.estimate || 0 + acc end)
+    |> Enum.reduce(0, fn(story, acc) -> (story.estimate || 0) + acc end)
   end
 
   def total_completed_points(stories) do
