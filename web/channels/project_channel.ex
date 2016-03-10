@@ -5,10 +5,16 @@ defmodule Kairos.ProjectChannel do
   def join("project:" <> project_id, _params, socket) do
     Logger.info "Joined to ProjectChannel"
 
-    project = project_id
-      |> String.to_integer
-      |> Kairos.Project.Server.get_state
+    project_id
+    |> String.to_integer
+    |> Kairos.Project.Server.get_state
+    |> case do
+      {:error, :invalid_project} ->
+        {:error, %{error: "Invalid project"}}
 
-    {:ok, project, assign(socket, :project, project)}
+      project ->
+        {:ok, project, assign(socket, :project, project)}
+    end
+
   end
 end
