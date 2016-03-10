@@ -18,7 +18,7 @@ export function createProject(currentUser, data) {
   return dispatch => {
     currentUser.channel.push('user:create_project', { project: data })
     .receive('ok', (payload) => {
-      dispatch(push(`/projects/${payload.project.id}`));
+      dispatch(push(`/project/${payload.project.id}`));
     });
   };
 }

@@ -7,7 +7,7 @@ export default class ProjectCard extends React.Component {
 
     const { dispatch, id } = this.props;
 
-    dispatch(routeActions.push(`/projects/${id}`));
+    dispatch(routeActions.push(`/project/${id}`));
   }
 
   render() {
