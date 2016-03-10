@@ -1,16 +1,18 @@
 import React, {PropTypes}         from 'react';
 import { connect }                from 'react-redux';
 import { push }                   from 'react-router-redux';
+import { Link }                   from 'react-router';
 import { setDocumentTitle }       from '../../utils';
 import { fetchExternalProjects }  from '../../actions/project_form';
 import { createProject }          from '../../actions/project_form';
 import { reset }                  from '../../actions/project_form';
+import Modal                      from '../../components/modal';
 
 class ProjectsNewView extends React.Component {
   componentDidMount() {
     const { dispatch, currentUser } = this.props;
 
-    if (!currentUser.admin) dispatch(push('/'));
+    if (!currentUser.admin) dispatch(push('/projects'));
 
     setDocumentTitle('Create new project');
     dispatch(fetchExternalProjects(currentUser));
@@ -46,24 +48,28 @@ class ProjectsNewView extends React.Component {
     dispatch(createProject(currentUser, data));
   }
 
-  render() {
+  _handleModalClose() {
+    const { dispatch } = this.props;
+
+    dispatch(push('/projects'));
+  }
+
+  _render() {
     const { pivotalTrackerProjects, togglProjects } = this.props;
 
     if (pivotalTrackerProjects.length == 0 || togglProjects.length == 0) return null;
 
     return (
-      <div className="view-container" id="projects_create">
+      <div className="md-content">
         <header>
           <h1>Create new project</h1>
         </header>
         <form onSubmit={::this._handleFormSubmit}>
           <div className="inputs">
-            <label>Name</label>
-            <input ref="name" required={true}/>
+            <input ref="name" required={true} placeholder="Project name"/>
           </div>
           <div className="inputs">
-            <label>Description</label>
-            <textarea ref="description" />
+            <textarea ref="description" placeholder="Description" rows="5" />
           </div>
           <div className="inputs">
             <label>Pivotal Tracker Project</label>
@@ -78,10 +84,18 @@ class ProjectsNewView extends React.Component {
             </select>
           </div>
           <div className="actions">
-            <button type="submit">Save</button>
+            <button type="submit">Save</button> or <Link to="/projects">cancel</Link>
           </div>
         </form>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <Modal onClose={::this._handleModalClose}>
+        {::this._render()}
+      </Modal>
     );
   }
 }

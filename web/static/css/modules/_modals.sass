@@ -1,0 +1,44 @@
+.md-overlay
+  position: fixed
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  z-index: 1000
+  background: rgba(#333, .9)
+  overflow-y: scroll
+  animation-duration: .3s
+  animation-name: fadeIn
+
+  .md-modal
+    +display(flex)
+    +align-items(center)
+    +justify-content(center)
+    position: fixed
+    pointer-events: none
+    z-index: 2000
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    overflow-y: scroll
+
+    .md-content
+      $width: 500px
+      +pad($base-spacing)
+      border-radius: $base-border-radius
+      background: $light-gray
+      pointer-events: all
+      width: $width
+      animation-duration: .3s
+      animation-name: fadeIn
+
+      header
+        h1
+          text-transform: uppercase
+          font-size: 1.5em
+          font-weight: 400
+
+      .fa
+        font-size: 2.5em
+        margin-bottom: $small-spacing
