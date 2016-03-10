@@ -9,7 +9,7 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case Constants.CURRENT_PROJECT_SET:
-      return { ...state, ...action.project, channel: action.channel, stories: action.stories, error: null };
+      return { ...state, ...action.project, channel: action.channel, error: null };
 
     case Constants.CURRENT_PROJECT_ERROR:
       return { ...state, error: action.error };

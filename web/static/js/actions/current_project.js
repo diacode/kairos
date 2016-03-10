@@ -9,7 +9,7 @@ export function fetchProject(socket, id) {
       dispatch({
         type: Constants.CURRENT_PROJECT_SET,
         channel: channel,
-        ...response,
+        project: { ...response },
       });
     })
     .receive('error', (response) => {

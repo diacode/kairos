@@ -29,6 +29,30 @@
       border-radius: $base-border-radius
       border: 1px solid $light-brown
       cursor: pointer
+      position: relative
+
+      .metrics
+        +clearfix
+        display: table
+        width: 100%
+        position: absolute
+        bottom: 0
+        left: 0
+
+        > div
+          +span-columns(6, table)
+          background: rgba($light-brown, .5)
+          padding: $base-spacing
+          text-align: center
+
+          &:first-of-type
+            border-right: 1px solid #fff
+
+          strong
+            font-family: $heading-font-family
+            display: block
+            font-weight: 400
+            font-size: 1.3em
 
       &:hover
         box-shadow: 0 0 0 5px $light-brown
@@ -43,6 +67,7 @@
         text-transform: uppercase
         font-family: $heading-font-family
         color: $action-color
+
 
         &:hover
           color: shade($action-color, 20)

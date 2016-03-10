@@ -3,7 +3,9 @@ defmodule Kairos.Project.Server do
   import Kairos.Project.Calculations
 
   defstruct [
-    project: nil,
+    id: nil,
+    name: nil,
+    description: nil,
     stories: [],
     total_story_points: 0,
     total_completed_points: 0,
@@ -31,7 +33,9 @@ defmodule Kairos.Project.Server do
     stories = get_stories(project.pivotal_tracker_id)
 
     state = %__MODULE__{
-      project: project,
+      id: project.id,
+      name: project.name,
+      description: project.description,
       stories: stories,
       total_story_points: total_story_points(stories),
       total_completed_points: total_completed_points(stories),
