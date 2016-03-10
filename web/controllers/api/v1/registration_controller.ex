@@ -6,7 +6,7 @@ defmodule Kairos.RegistrationController  do
   plug :scrub_params, "user" when action in [:create]
 
   def create(conn, %{"user" => user_params}) do
-    changeset = User.changeset(%User{}, user_params)
+    changeset = User.changeset(%User{admin: false}, user_params)
 
     case Repo.insert(changeset) do
       {:ok, user} ->
