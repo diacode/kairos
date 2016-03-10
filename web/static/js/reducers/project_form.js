@@ -15,7 +15,8 @@ export default function reducer(state = initialState, action = {}) {
       };
 
     case Constants.PROJECT_FORM_RESET:
-      return { ...initialState };
+      const { pivotalTrackerProjects, togglProjects } = state;
+      return { ...initialState, pivotalTrackerProjects: pivotalTrackerProjects, togglProjects: togglProjects };
 
     default:
       return state;

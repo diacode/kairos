@@ -17,7 +17,7 @@ export default class ProjectCard extends React.Component {
       <li className="project-item" onClick={::this._handleClick}>
         <div className="inner">
           <header>
-            <h2>{name}</h2>
+            <h3>{name}</h3>
           </header>
           <p>{description}</p>
         </div>
