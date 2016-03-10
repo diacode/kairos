@@ -1,5 +1,16 @@
 defmodule Kairos.Project.Server do
   use GenServer
+  import Kairos.Project.Calculations
+
+  defstruct [
+    project: nil,
+    stories: [],
+    total_story_points: 0,
+    total_completed_points: 0,
+    total_estimated_hours: 0,
+    total_worked_hours: 0,
+    deviation: 0
+  ]
 
   @doc """
   Creates a new Project process if it doesn't exist. If it's been previously
@@ -17,10 +28,17 @@ defmodule Kairos.Project.Server do
   end
 
   def init(project) do
-    stories = project.pivotal_tracker_id
-      |> Kairos.Story.Fetcher.get_stories
+    stories = get_stories(project.pivotal_tracker_id)
 
-    {:ok, %{project: project, stories: stories}}
+    state = %__MODULE__{
+      project: project,
+      stories: stories,
+      total_story_points: total_story_points(stories),
+      total_completed_points: total_completed_points(stories),
+      total_estimated_hours: total_estimated_hours(stories)
+    }
+
+    {:ok, state}
   end
 
   @doc """
@@ -42,4 +60,6 @@ defmodule Kairos.Project.Server do
   end
 
   defp ref(project_id), do: {:global, {:project_id, project_id}}
+
+  defp get_stories(pivotal_tracker_id), do: Kairos.Story.Fetcher.get_stories(pivotal_tracker_id)
 end
