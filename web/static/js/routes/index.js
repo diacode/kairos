@@ -31,9 +31,10 @@ export default function configRoutes(store) {
       <Route path="/sign_in" component={SessionsNew} />
 
       <Route path="/" component={AuthenticatedContainer} onEnter={_ensureAuthenticated}>
-        <IndexRoute component={HomeIndexView} />
-        <Route path="projects/new" component={ProjectsNewView} />
-        <Route path="projects/:id" component={ProjectsShowView} />
+        <Route path="projects" component={HomeIndexView}>
+          <Route path="new" component={ProjectsNewView} />
+        </Route>
+        <Route path="project/:id" component={ProjectsShowView} />
 
         <Route path="settings" component={SettingsIndexView} />
       </Route>

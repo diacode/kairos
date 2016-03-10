@@ -42,7 +42,7 @@ const Actions = {
       .then((data) => {
         localStorage.setItem('phoenixAuthToken', data.jwt);
         setCurrentUser(dispatch, data.user);
-        dispatch(routeActions.push('/'));
+        dispatch(routeActions.push('/projects'));
       })
       .catch((error) => {
         error.response.json()

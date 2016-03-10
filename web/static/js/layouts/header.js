@@ -39,7 +39,7 @@ class Header extends React.Component {
   render() {
     return (
       <header className="main-header">
-        <Link to='/'>
+        <Link to="/projects">
           <div className="logo-small"></div>
         </Link>
         <nav className="right">

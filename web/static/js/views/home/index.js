@@ -88,6 +88,7 @@ class HomeIndexView extends React.Component {
     return (
       <div className="view-container">
         {::this._renderProjects()}
+        {this.props.children}
       </div>
     );
   }
