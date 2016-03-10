@@ -35,8 +35,10 @@ defmodule Kairos.UserChannel do
   def handle_in("user:projects", _params, socket) do
     Logger.info "Requesting projects from UserChannel"
 
-    projects = Project
-      |> Repo.all
+    project_ids = Kairos.Project.Starter.projects
+
+    projects = project_ids
+      |> Enum.map(&Kairos.Project.Server.get_state(&1))
 
     {:reply, {:ok, %{projects: projects}}, socket}
   end
