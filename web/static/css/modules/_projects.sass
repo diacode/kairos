@@ -32,3 +32,22 @@
 
       &:hover
         box-shadow: 0 0 0 5px $light-brown
+
+    &.add-new
+      .inner
+        +display(flex)
+        +align-items(center)
+        +justify-content(center)
+        background: $light-brown
+        text-align: center
+        text-transform: uppercase
+        font-family: $heading-font-family
+        color: $action-color
+
+        &:hover
+          color: shade($action-color, 20)
+
+      .fa
+        font-size: 5em
+        display: block
+        margin-bottom: $small-spacing / 3

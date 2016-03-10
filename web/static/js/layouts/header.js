@@ -13,7 +13,7 @@ class Header extends React.Component {
 
     return (
       <a className="current-user">
-        <ReactGravatar className="react-gravatar" email={currentUser.email} https /> {currentUser.firstName}
+        <ReactGravatar className="react-gravatar" email={currentUser.email} https />
       </a>
     );
   }
@@ -46,9 +46,6 @@ class Header extends React.Component {
           <ul>
             <li>
               {this._renderCurrentUser()}
-            </li>
-            <li>
-              <Link to="/settings">Settings</Link>
             </li>
             <li>
               {this._renderSignOutLink()}
