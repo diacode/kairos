@@ -16,7 +16,7 @@ defmodule Kairos.Story.Fetcher do
   def get_stories(project_id), do: build_client |> get_stories(project_id)
   def get_stories(client, project_id, offset \\ 0, items \\ [])
   def get_stories(client, project_id, offset, items) do
-    Logger.info "Fetching for project #{project_id} with offset #{offset}"
+    Logger.debug "Fetching stories for project #{project_id} with offset #{offset}"
 
     client
     |> do_get_stories(project_id, offset: offset)

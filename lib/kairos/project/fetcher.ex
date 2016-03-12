@@ -7,7 +7,7 @@ defmodule Kairos.Project.Fetcher do
   @pivotal_tracker_api_token Application.get_env(:kairos, :pivotal_tracker_api_token)
 
   def get_projects do
-    Logger.info("Getting external projects from services")
+    Logger.debug("Getting external projects from services")
 
     [
       Task.async(fn -> get_pivotal_traker_projects end),

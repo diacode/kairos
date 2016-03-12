@@ -3,7 +3,7 @@ defmodule Kairos.ProjectChannel do
   require Logger
 
   def join("project:" <> project_id, _params, socket) do
-    Logger.info "Joined to ProjectChannel"
+    Logger.debug "Joining project #{project_id} channel"
 
     project_id
     |> String.to_integer

@@ -5,7 +5,7 @@ defmodule Kairos.UserChannel do
   alias Kairos.{Repo, User, Project}
 
   def join("users:" <> user_id, _params, socket) do
-    Logger.info "Joined to UserChannel"
+    Logger.debugger "Joining user #{user_id} channel"
 
     current_user = socket.assigns.current_user
 
@@ -17,7 +17,7 @@ defmodule Kairos.UserChannel do
   end
 
   def handle_in("user:update", %{"user" => params}, socket) do
-    Logger.info "Updating user in UserChannel"
+    Logger.debugger "Updating user"
 
     current_user = socket.assigns.current_user
 
@@ -33,7 +33,7 @@ defmodule Kairos.UserChannel do
   end
 
   def handle_in("user:projects", _params, socket) do
-    Logger.info "Requesting projects from UserChannel"
+    Logger.debugger "Requesting projects"
 
     project_ids = Kairos.Project.Starter.projects
 
@@ -44,7 +44,7 @@ defmodule Kairos.UserChannel do
   end
 
   def handle_in("user:external_projects", _params, socket) do
-    Logger.info "Requesting external projects in UserChannel"
+    Logger.debugger "Requesting external projects"
 
     projects = Kairos.Project.Fetcher.get_projects
 
@@ -52,7 +52,7 @@ defmodule Kairos.UserChannel do
   end
 
   def handle_in("user:create_project", %{"project" => params}, socket) do
-    Logger.info "Crating new project in UserChannel"
+    Logger.debugger "Creating new project"
 
     current_user = socket.assigns.current_user
 
