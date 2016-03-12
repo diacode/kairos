@@ -15,8 +15,8 @@ defmodule Kairos.Project.Starter do
     GenServer.cast(__MODULE__, {:start_project, project})
   end
 
-  def projects do
-    GenServer.call(__MODULE__, :projects)
+  def get_projects do
+    GenServer.call(__MODULE__, :get_projects)
   end
 
   def init(_) do
@@ -34,7 +34,7 @@ defmodule Kairos.Project.Starter do
     {:noreply, %{state | projects: [project.id | projects]}}
   end
 
-  def handle_call(:projects, _from, %{projects: projects} = state) do
+  def handle_call(:get_projects, _from, %{projects: projects} = state) do
     {:reply, projects, state}
   end
 
