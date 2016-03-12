@@ -1,6 +1,7 @@
 import React, {PropTypes}        from 'react';
 import { connect }               from 'react-redux';
-import { fetchProject, reset }   from '../../actions/current_project';
+import { IndexLink, Link }                  from 'react-router';
+import { fetchProject, reset }   from '../../../actions/current_project';
 
 export default class ProjectsShowView extends React.Component {
   componentDidMount() {
@@ -34,15 +35,34 @@ export default class ProjectsShowView extends React.Component {
   }
 
   render() {
-    const { currentUser, name, stories, id, error } = this.props;
+    const { currentUser, name, description, stories, id, error } = this.props;
 
     if (error != null) return this._renderError(error);
     if (id === undefined) return null;
 
     return (
-      <div className="view-container">
-        <h1>{name}</h1>
-        <p>{stories.length} stories</p>
+      <div id="projects_show">
+        <header id="project_header">
+          <div className="container">
+            <h1>{name}</h1>
+            <p>{description}</p>
+          </div>
+        </header>
+        <nav id="project_nav">
+          <div className="container">
+            <ul>
+              <li>
+                <IndexLink to={`/project/${id}`} activeClassName="active">Overview</IndexLink>
+              </li>
+              <li>
+                <Link to={`/project/${id}/stories`} activeClassName="active">Stories</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <section>
+          {this.props.children}
+        </section>
       </div>
     );
   }
