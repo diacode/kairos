@@ -1,0 +1,91 @@
+#projects_show
+  #project_header
+    background: $light-brown
+    margin-top: -$base-spacing * 2
+    padding: $base-spacing 0
+
+    h1
+      color: $dark-brown
+      text-transform: uppercase
+
+    p
+      color: $brown
+      margin-bottom: 0
+      font-style: italic
+
+  #project_nav
+    background: $brown
+    margin-bottom: $base-spacing*2
+
+    ul
+      li
+        display: inline-block
+
+        a
+          +transition
+          line-height: 4em
+          color: rgba($light-brown, .5)
+          padding: 0 2em
+          font-family: $heading-font-family
+          font-weight: 400
+          font-size: .85em
+          text-transform: uppercase
+          display: inline-block
+          border-bottom: 3px solid transparent
+
+
+          &:hover
+            color: $light-brown
+
+          &.active
+            $color: shade($dark-brown, 20)
+            border-bottom: 3px solid $color
+            color: $color
+  section
+    > .container
+      animation-duration: $base-duration
+      animation-name: fadeIn
+
+  .stats-container
+    +display(flex)
+    +flex-wrap(wrap)
+    +fill-parent
+    margin: 0 -15px 0 -15px
+
+    li
+      +flex(0 0 25%)
+      +align-self(stretch)
+      padding: 0 15px
+
+      .inner
+        +transition
+        +display(flex)
+        +align-items(center)
+        +justify-content(center)
+        background: #fff
+        min-height: 150px
+        padding: $base-spacing
+        border-radius: $base-border-radius
+        border: 1px solid $light-brown
+        text-align: center
+
+        strong
+          font-family: $heading-font-family
+          display: block
+          font-weight: 400
+          font-size: 2em
+          color: $dark-brown
+
+  .stories-container
+    background: #fff
+    border-radius: $base-border-radius
+    border: 1px solid $light-brown
+
+    li
+      padding: $small-spacing $base-spacing
+
+      &:not(:last-of-type)
+        border-bottom: 1px solid $light-brown
+
+      &:nth-child(odd)
+        background: rgba($light-gray, .3)
