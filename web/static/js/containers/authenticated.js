@@ -11,9 +11,7 @@ class AuthenticatedContainer extends React.Component {
     return (
       <div id="authenticated_container" className="application-container">
         <Header/>
-        <div className="container">
-          {this.props.children}
-        </div>
+        {this.props.children}
       </div>
     );
   }
