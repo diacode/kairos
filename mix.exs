@@ -27,7 +27,8 @@ defmodule Kairos.Mixfile do
        :phoenix_ecto,
        :postgrex,
        :comeonin,
-       :extracker
+       :extracker,
+       :togglex
      ]
    ]
   end
@@ -56,6 +57,7 @@ defmodule Kairos.Mixfile do
       {:hound, "~> 0.8"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:credo, "~> 0.3", only: [:dev, :test]},
+      {:togglex, github: "hopsor/togglex"}
     ]
   end
 
