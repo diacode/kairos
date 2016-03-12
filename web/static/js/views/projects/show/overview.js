@@ -1,7 +1,14 @@
 import React, {PropTypes}        from 'react';
 import { connect }               from 'react-redux';
+import { setDocumentTitle }      from '../../../utils';
 
 export default class ProjectsShowOverview extends React.Component {
+  componentDidMount() {
+    const { name } = this.props;
+
+    setDocumentTitle(`${name} overview`);
+  }
+
   _renderStats() {
     const { total_story_points, total_completed_points, total_estimated_hours, total_worked_hours } = this.props;
 

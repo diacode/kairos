@@ -1,7 +1,14 @@
 import React, {PropTypes}        from 'react';
 import { connect }               from 'react-redux';
+import { setDocumentTitle }      from '../../../utils';
 
 export default class ProjectsShowStories extends React.Component {
+  componentDidMount() {
+    const { name } = this.props;
+
+    setDocumentTitle(`${name} stories`);
+  }
+
   _renderStories() {
     const { stories } = this.props;
 

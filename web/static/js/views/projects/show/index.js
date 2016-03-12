@@ -1,6 +1,6 @@
 import React, {PropTypes}        from 'react';
 import { connect }               from 'react-redux';
-import { IndexLink, Link }                  from 'react-router';
+import { IndexLink, Link }       from 'react-router';
 import { fetchProject, reset }   from '../../../actions/current_project';
 
 export default class ProjectsShowView extends React.Component {
