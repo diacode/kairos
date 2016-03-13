@@ -35,14 +35,17 @@ class ProjectsNewView extends React.Component {
   _handleFormSubmit(e) {
     e.preventDefault();
 
-    const { dispatch, currentUser } = this.props;
+    const { dispatch, currentUser, pivotalTrackerProjects } = this.props;
     const { name, description, pivotalTrackerId, togglId } = this.refs;
+    const pivotalTrackerIdValue = pivotalTrackerId.value;
+    const pivotalProject = pivotalTrackerProjects.find((project) => { return project.id == pivotalTrackerIdValue;});
 
     const data = {
       name: name.value.trim(),
       description: description.value.trim(),
-      pivotal_tracker_id: pivotalTrackerId.value.trim(),
-      toggl_id: togglId.value.trim(),
+      pivotal_tracker_id: pivotalTrackerIdValue,
+      toggl_id: togglId.value,
+      start_date: pivotalProject.created_at,
     };
 
     dispatch(createProject(currentUser, data));
