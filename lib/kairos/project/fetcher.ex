@@ -5,6 +5,8 @@ defmodule Kairos.Project.Fetcher do
   require Logger
 
   @pivotal_tracker_api_token Application.get_env(:kairos, :pivotal_tracker_api_token)
+  @toggl_api_token Application.get_env(:kairos, :toggl_api_token)
+  @toggl_workspace_id Application.get_env(:kairos, :toggl_workspace_id)
 
   def get_projects do
     Logger.debug("Getting external projects from services")
@@ -18,8 +20,9 @@ defmodule Kairos.Project.Fetcher do
   end
 
   def get_pivotal_traker_projects do
-    client = ExTracker.Client.new %{access_token: @pivotal_tracker_api_token}
-    projects = client |> ExTracker.Projects.list(fields: ":default,current_velocity")
+    projects = %{access_token: @pivotal_tracker_api_token}
+      |> ExTracker.Client.new
+      |> ExTracker.Projects.list(fields: ":default,current_velocity")
 
     {:pivotal_tracker_projects, projects}
   rescue
@@ -29,6 +32,10 @@ defmodule Kairos.Project.Fetcher do
   end
 
   def get_toggl_projects do
-    {:toggl_projects, [%{id: 11111, name: "Sample project"}]}
+    projects = %{access_token: @toggl_api_token}
+     |> Togglex.Api.Client.new
+     |> Togglex.Api.Workspace.projects(@toggl_workspace_id)
+
+    {:toggl_projects, projects}
   end
 end
