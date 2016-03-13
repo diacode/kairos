@@ -8,11 +8,13 @@ defmodule Kairos.Project do
     field :description, :string
     field :pivotal_tracker_id, :integer
     field :toggl_id, :integer
+    field :toggl_workspace_id, :integer
+    field :start_date, Ecto.Date
 
     timestamps
   end
 
-  @required_fields ~w(name pivotal_tracker_id toggl_id)
+  @required_fields ~w(name pivotal_tracker_id toggl_id toggl_workspace_id start_date)
   @optional_fields ~w(description)
 
   @doc """
