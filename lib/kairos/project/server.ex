@@ -7,7 +7,9 @@ defmodule Kairos.Project.Server do
     id: nil,
     name: nil,
     description: nil,
+    start_date: nil,
     stories: [],
+    time_entries: [],
     total_story_points: 0,
     total_completed_points: 0,
     total_estimated_hours: 0,
@@ -34,15 +36,19 @@ defmodule Kairos.Project.Server do
     Logger.debug "Starting server for project #{project.id}"
 
     stories = get_stories(project.pivotal_tracker_id)
+    time_entries = get_time_entries(project.toggl_id, project.start_date)
 
     state = %__MODULE__{
       id: project.id,
       name: project.name,
       description: project.description,
+      start_date: project.start_date,
       stories: stories,
+      time_entries: time_entries,
       total_story_points: total_story_points(stories),
       total_completed_points: total_completed_points(stories),
-      total_estimated_hours: total_estimated_hours(stories)
+      total_estimated_hours: total_estimated_hours(stories),
+      total_worked_hours: total_worked_hours(time_entries)
     }
 
     {:ok, state}
@@ -69,4 +75,5 @@ defmodule Kairos.Project.Server do
   defp ref(project_id), do: {:global, {:project_id, project_id}}
 
   defp get_stories(pivotal_tracker_id), do: Kairos.Story.Fetcher.get_stories(pivotal_tracker_id)
+  defp get_time_entries(toggl_id, start_date), do: Kairos.TimeEntry.Fetcher.get_time_entries(toggl_id, start_date)
 end
