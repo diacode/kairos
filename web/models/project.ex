@@ -8,7 +8,6 @@ defmodule Kairos.Project do
     field :description, :string
     field :pivotal_tracker_id, :integer
     field :toggl_id, :integer
-    field :toggl_workspace_id, :integer
     field :start_date, Ecto.Date
 
     timestamps

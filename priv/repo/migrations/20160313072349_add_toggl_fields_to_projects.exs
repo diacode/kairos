@@ -4,7 +4,6 @@ defmodule Kairos.Repo.Migrations.AddTogglFieldsToProjects do
   def change do
     alter table(:projects) do
       add :start_date, :date, null: false
-      add :toggl_workspace_id, :integer, null: false
     end
   end
 end
