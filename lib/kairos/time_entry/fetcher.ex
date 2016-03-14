@@ -9,7 +9,6 @@ defmodule Kairos.TimeEntry.Fetcher do
 
   @toggl_api_token Application.get_env(:kairos, :toggl_api_token)
   @toggl_workspace_id Application.get_env(:kairos, :toggl_workspace_id)
-  @limit 50
 
   def get_time_entries(project_id, start_date), do: build_client |> get_time_entries(project_id, start_date)
   def get_time_entries(client, project_id, start_date) do
