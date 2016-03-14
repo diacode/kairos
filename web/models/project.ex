@@ -1,18 +1,19 @@
 defmodule Kairos.Project do
   use Kairos.Web, :model
 
-  @derive {Poison.Encoder, only: [:id, :name, :description, :pivotal_tracker_id, :toggl_id]}
+  @derive {Poison.Encoder, only: [:id, :name, :description, :pivotal_tracker_id, :toggl_id, :start_date]}
 
   schema "projects" do
     field :name, :string
     field :description, :string
     field :pivotal_tracker_id, :integer
     field :toggl_id, :integer
+    field :start_date, Ecto.Date
 
     timestamps
   end
 
-  @required_fields ~w(name pivotal_tracker_id toggl_id)
+  @required_fields ~w(name pivotal_tracker_id toggl_id start_date)
   @optional_fields ~w(description)
 
   @doc """
