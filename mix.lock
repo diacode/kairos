@@ -1,6 +1,7 @@
 %{"base64url": {:hex, :base64url, "0.0.1"},
   "bunt": {:hex, :bunt, "0.1.5"},
   "certifi": {:hex, :certifi, "0.3.0"},
+  "combine": {:hex, :combine, "0.7.0"},
   "comeonin": {:hex, :comeonin, "2.1.1"},
   "connection": {:hex, :connection, "1.0.2"},
   "cowboy": {:hex, :cowboy, "1.0.4"},
@@ -32,5 +33,7 @@
   "postgrex": {:hex, :postgrex, "0.11.1"},
   "ranch": {:hex, :ranch, "1.2.1"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
+  "timex": {:hex, :timex, "2.1.1"},
   "togglex": {:git, "https://github.com/hopsor/togglex.git", "3e23485ca4312f1b83f129922dd3b661b2ae8a5f", [branch: "feature/v8-api"]},
+  "tzdata": {:hex, :tzdata, "0.5.6"},
   "uuid": {:hex, :uuid, "1.1.3"}}
