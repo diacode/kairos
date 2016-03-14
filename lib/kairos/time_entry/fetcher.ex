@@ -24,25 +24,27 @@ defmodule Kairos.TimeEntry.Fetcher do
 
     years..0
     |> Enum.to_list
-    |> Enum.map(fn(year_number) ->
-      since = Timex.shift(start_date, years: year_number)
-      until = since
-        |> Timex.shift(years: 1)
-        |> Timex.shift(days: -1)
-
-      since_string = Timex.format!(since, "{YYYY}-{0M}-{D}")
-      until_string = Timex.format!(until, "{YYYY}-{0M}-{D}")
-      
-      get_time_entries(client, project_id, since_string, until_string)
-    end)
+    |> Enum.map(&process_year(&1, client, project_id, start_date))
     |> List.flatten
   end
 
+  def process_year(year_number, client, project_id, start_date) do
+    since = Timex.shift(start_date, years: year_number)
+    until = since
+      |> Timex.shift(years: 1)
+      |> Timex.shift(days: -1)
+
+    get_time_entries(client, project_id, since, until)
+  end
+
   def get_time_entries(client, project_id, since, until) do
-    Logger.debug "Fetching time entries for project #{project_id} between #{since} #{until}"
+    since_string = Timex.format!(since, "{YYYY}-{0M}-{D}")
+    until_string = Timex.format!(until, "{YYYY}-{0M}-{D}")
+
+    Logger.debug "Fetching time entries for project #{project_id} between #{since_string} #{until_string}"
 
     client
-    |> Togglex.Reports.summary(%{workspace_id: @toggl_workspace_id, project_ids: project_id, since: since, until: until})
+    |> Togglex.Reports.summary(%{workspace_id: @toggl_workspace_id, project_ids: project_id, since: since_string, until: until_string})
     |> Map.get(:data)
     |> List.first
     |> Map.get(:items)
