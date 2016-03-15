@@ -10,7 +10,7 @@ defmodule Kairos.ProjectChannel do
     |> Kairos.Project.Server.get_data
     |> case do
       {:error, :invalid_project} ->
-        {:error, %{error: "Invalid project"}}
+        {:error, %{reason: "Invalid project"}}
 
       project ->
         {:ok, project, assign(socket, :project, project)}

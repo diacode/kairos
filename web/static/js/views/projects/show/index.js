@@ -30,7 +30,10 @@ export default class ProjectsShowView extends React.Component {
 
   _renderError(error) {
     return (
-      <div className="error">{error}</div>
+      <div className="view-container error-container">
+        <i className="fa fa-bomb"/>
+        <p>{error}</p>
+      </div>
     );
   }
 
