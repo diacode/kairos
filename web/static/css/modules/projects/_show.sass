@@ -84,7 +84,6 @@
       +clearfix
       +fill-parent
       padding: $small-spacing $base-spacing
-      display: table
 
       > div
         vertical-align: middle
@@ -108,7 +107,7 @@
         font-family: $heading-font-family
 
       .id
-        +span-columns(1.5, table)
+        +span-columns(1.5)
         font-family: $heading-font-family
 
         &.ok
@@ -117,16 +116,16 @@
           color: $red
 
       .name
-        +span-columns(7, table)
+        +span-columns(7)
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
       .status
-        +span-columns(1, table)
+        +span-columns(1)
         text-align: center
         small
           text-transform: uppercase
           font-family: $heading-font-family
       .estimation, .dedicated-hours
-        +span-columns(1.25, table)
+        +span-columns(1.25)
         text-align: center

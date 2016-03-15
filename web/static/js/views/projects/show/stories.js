@@ -44,9 +44,9 @@ export default class ProjectsShowStories extends React.Component {
     return (
       <ul className="stories-container">
         <li className="header" key="header">
-          <div className="id"> </div>
-          <div className="name"> </div>
-          <div className="status"> </div>
+          <div className="id">&#160;</div>
+          <div className="name">&#160;</div>
+          <div className="status">&#160;</div>
           <div className="estimation">Estimated</div>
           <div className="dedicated-hours">Dedicated</div>
         </li>
