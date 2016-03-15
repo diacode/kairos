@@ -1,13 +1,13 @@
 import React            from 'react';
 import { connect }      from 'react-redux';
-import { routeActions } from 'react-router-redux';
+import { push }          from 'react-router-redux';
 import Header           from '../layouts/header';
 
 class AuthenticatedContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch, children } = nextProps;
 
-    if (children == null) dispatch(routeActions.push('/projects'));
+    if (children == null) dispatch(push     ('/projects'));
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import { routeActions }   from 'react-router-redux';
+import { push }            from 'react-router-redux';
 
 export default class ProjectCard extends React.Component {
   _handleClick(e) {
@@ -7,7 +7,7 @@ export default class ProjectCard extends React.Component {
 
     const { dispatch, id } = this.props;
 
-    dispatch(routeActions.push(`/project/${id}`));
+    dispatch(push     (`/project/${id}`));
   }
 
   render() {
