@@ -14,7 +14,7 @@ export default class ProjectsShowStories extends React.Component {
     const { stories } = this.props;
 
     const items = stories.map((story) => {
-      const { id, name, estimate } = story;
+      const { id, name, estimate, current_state } = story;
       const estimatedHours = this._estimatedHours(estimate);
       const dedicatedHours = this._dedicatedHours(story);
 
@@ -32,8 +32,11 @@ export default class ProjectsShowStories extends React.Component {
           <div className="name">
             {name}
           </div>
-          <div className="estimation">{estimate | 0}pts. / {estimatedHours}hrs.</div>
-          <div className="dedicated-hours">{dedicatedHours}hrs.</div>
+          <div className="status">
+            <small>{current_state}</small>
+          </div>
+          <div className="estimation">{estimate | 0}<small>pts.</small> / {estimatedHours}<small>hrs.</small></div>
+          <div className="dedicated-hours">{dedicatedHours}<small>hrs.</small></div>
         </li>
       );
     });
@@ -43,6 +46,7 @@ export default class ProjectsShowStories extends React.Component {
         <li className="header" key="header">
           <div className="id"> </div>
           <div className="name"> </div>
+          <div className="status"> </div>
           <div className="estimation">Estimated</div>
           <div className="dedicated-hours">Dedicated</div>
         </li>

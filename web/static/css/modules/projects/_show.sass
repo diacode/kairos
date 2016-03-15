@@ -82,7 +82,13 @@
 
     li
       +clearfix
+      +fill-parent
       padding: $small-spacing $base-spacing
+      display: table
+
+      > div
+        vertical-align: middle
+
 
       &:not(.header)
         border: 1px solid $light-brown
@@ -102,19 +108,25 @@
         font-family: $heading-font-family
 
       .id
-        +span-columns(1.5)
+        +span-columns(1.5, table)
+        font-family: $heading-font-family
+
         &.ok
           color: $green
         &.error
           color: $red
+
       .name
-        +span-columns(7.5)
+        +span-columns(7, table)
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
-      .estimation
-        +span-columns(1.5)
+      .status
+        +span-columns(1, table)
         text-align: center
-      .dedicated-hours
-        +span-columns(1.5)
+        small
+          text-transform: uppercase
+          font-family: $heading-font-family
+      .estimation, .dedicated-hours
+        +span-columns(1.25, table)
         text-align: center
