@@ -29,8 +29,8 @@ defmodule Kairos.Project.Fetcher do
 
   def get_toggl_projects do
     projects = %{access_token: @toggl_api_token}
-     |> Togglex.Api.Client.new
-     |> Togglex.Api.Workspace.projects(@toggl_workspace_id)
+     |> Togglex.Client.new(:api)
+     |> Togglex.Api.Workspaces.projects(@toggl_workspace_id)
 
     {:toggl_projects, projects}
   end
