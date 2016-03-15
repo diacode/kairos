@@ -50,6 +50,6 @@ defmodule Kairos.TimeEntry.Fetcher do
   end
 
   defp build_client do
-    Togglex.Reports.Client.new(%{access_token: @toggl_api_token})
+    Togglex.Client.new(%{access_token: @toggl_api_token}, :reports)
   end
 end
