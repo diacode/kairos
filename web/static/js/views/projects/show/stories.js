@@ -11,12 +11,10 @@ export default class ProjectsShowStories extends React.Component {
   }
 
   _renderStories() {
-    const { stories } = this.props;
+    const { projectStories } = this.props;
 
-    const items = stories.map((story) => {
-      const { id, name, estimate, current_state } = story;
-      const estimatedHours = this._estimatedHours(estimate);
-      const dedicatedHours = this._dedicatedHours(story);
+    const items = projectStories.map((story) => {
+      const { id, name, estimate, status, dedicatedHours, estimatedHours } = story;
 
       const statusClasses = classnames({
         id: true,
@@ -33,7 +31,7 @@ export default class ProjectsShowStories extends React.Component {
             {name}
           </div>
           <div className="status">
-            <small>{current_state}</small>
+            <small>{status}</small>
           </div>
           <div className="estimation">{estimate | 0}<small>pts.</small> / {estimatedHours}<small>hrs.</small></div>
           <div className="dedicated-hours">{dedicatedHours}<small>hrs.</small></div>
@@ -44,36 +42,15 @@ export default class ProjectsShowStories extends React.Component {
     return (
       <ul className="stories-container">
         <li className="header" key="header">
-          <div className="id">&#160;</div>
-          <div className="name">&#160;</div>
-          <div className="status">&#160;</div>
+          <div className="id"> </div>
+          <div className="name"> </div>
+          <div className="status"> </div>
           <div className="estimation">Estimated</div>
           <div className="dedicated-hours">Dedicated</div>
         </li>
         {items}
       </ul>
     );
-  }
-
-  _estimatedHours(points) {
-    switch (points) {
-      case 1:
-        return 4;
-      case 2:
-        return 8;
-      case 3:
-        return 16;
-      default:
-        return 0;
-    }
-  }
-
-  _dedicatedHours(story) {
-    const { time_entries } = this.props;
-    const id = `#${story.id} ${story.name}`;
-    const timeEntry = time_entries.find((item) => {return item.title.time_entry === id;});
-
-    return timeEntry != null ? Math.round(timeEntry.time / 3600000) : 0;
   }
 
   render() {
