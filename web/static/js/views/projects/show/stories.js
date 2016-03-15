@@ -13,20 +13,46 @@ export default class ProjectsShowStories extends React.Component {
     const { stories } = this.props;
 
     const items = stories.map((story) => {
-      const { id, name } = story;
-
+      const { id, name, estimate } = story;
+      const estimatedHours = this._estimatedHours(estimate);
       return (
         <li key={story.id}>
-          <strong>#{id}</strong> {name}
+          <div className="id">
+            <strong>#{id}</strong>
+          </div>
+          <div className="name">
+            {name}
+          </div>
+          <div className="estimation">{estimate | 0}pts. / {estimatedHours}hrs.</div>
+          <div className="dedicated-hours">0</div>
         </li>
       );
     });
 
     return (
       <ul className="stories-container">
+        <li className="header" key="header">
+          <div className="id">&#160;</div>
+          <div className="name">&#160;</div>
+          <div className="estimation">Estimated</div>
+          <div className="dedicated-hours">Dedicated</div>
+        </li>
         {items}
       </ul>
     );
+  }
+
+  _estimatedHours(points) {
+    switch (points) {
+      case 1:
+        return 4;
+      case 2:
+        return 8;
+      case 3:
+        return 16;
+      default:
+        return 0;
+    }
   }
 
   render() {

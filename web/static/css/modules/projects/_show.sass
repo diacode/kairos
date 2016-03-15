@@ -77,15 +77,40 @@
           color: $dark-brown
 
   .stories-container
-    background: #fff
-    border-radius: $base-border-radius
-    border: 1px solid $light-brown
+    background: transparent
+    margin-bottom: $base-spacing*2
 
     li
+      +clearfix
       padding: $small-spacing $base-spacing
 
-      &:not(:last-of-type)
-        border-bottom: 1px solid $light-brown
+      &:not(.header)
+        border: 1px solid $light-brown
+        border-bottom: 0px none
 
-      &:nth-child(odd)
-        background: rgba($light-gray, .3)
+        &:last-of-type
+          border-bottom: 1px solid $light-brown
+
+        &:nth-child(odd)
+          background: rgba($light-gray, .3)
+        &:nth-child(even)
+          background: #fff
+
+      &.header
+        border: 0px none
+        text-transform: uppercase
+        font-family: $heading-font-family
+
+      .id
+        +span-columns(1.5)
+      .name
+        +span-columns(7.5)
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+      .estimation
+        +span-columns(1.5)
+        text-align: center
+      .dedicated-hours
+        +span-columns(1.5)
+        text-align: center
