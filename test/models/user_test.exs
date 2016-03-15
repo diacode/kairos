@@ -3,7 +3,7 @@ defmodule Kairos.UserTest do
 
   alias Kairos.User
 
-  @valid_attrs %{password: "some content", email: "john@test.com", first_name: "some content", last_name: "some content"}
+  @valid_attrs %{password: "some content", email: "john@test.com", first_name: "some content", last_name: "some content", admin: true}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

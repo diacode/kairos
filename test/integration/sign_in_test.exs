@@ -5,8 +5,8 @@ defmodule Kairos.SignInTest do
   test "GET /" do
     navigate_to "/"
 
-    assert page_title =~ "Sign in"
     assert element_displayed?({:id, "sign_in_form"})
+    assert page_title =~ "Sign in"
   end
 
   @tag :integration
@@ -29,7 +29,7 @@ defmodule Kairos.SignInTest do
     |> find_within_element(:css, "button")
     |> click
 
-    assert element_displayed?({:class, "error"})
+    assert element_displayed?({:class, "errors-container"})
 
     assert page_source =~ "Invalid email or password"
   end
@@ -39,8 +39,5 @@ defmodule Kairos.SignInTest do
     user = create_user
 
     user_sign_in user
-
-    assert page_source =~ "#{user.first_name}"
-    assert page_source =~ "Settings"
   end
 end

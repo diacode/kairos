@@ -32,7 +32,7 @@ defmodule Kairos.IntegrationCase do
   end
 
   def create_user do
-    %User{first_name: "John", last_name: "Doe", email: "john@kairos.com"}
+    %User{first_name: "John", last_name: "Doe", email: "john@kairos.com", admin: true}
     |> User.changeset(%{password: "12345678"})
     |> Repo.insert!
   end
