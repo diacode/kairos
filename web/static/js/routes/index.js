@@ -1,16 +1,17 @@
-import { IndexRoute, Route }    from 'react-router';
-import React                    from 'react';
-import MainLayout               from '../layouts/main';
-import AuthenticatedContainer   from '../containers/authenticated';
-import HomeIndexView            from '../views/home';
-import RegistrationsNew         from '../views/registrations/new';
-import SessionsNew              from '../views/sessions/new';
-import SettingsIndexView        from '../views/settings/index';
-import ProjectsNewView          from '../views/projects/new';
-import ProjectsShowView         from '../views/projects/show';
-import ProjectsShowOverview     from '../views/projects/show/overview';
-import ProjectsShowStories      from '../views/projects/show/stories';
-import Actions                  from '../actions/sessions';
+import { IndexRoute, Route }  from 'react-router';
+import React                  from 'react';
+import MainLayout             from '../layouts/main';
+import Actions                from '../actions/sessions';
+import AuthenticatedContainer from '../containers/authenticated';
+import HomeIndexView          from '../views/home';
+import RegistrationsNew       from '../views/registrations/new';
+import SessionsNew            from '../views/sessions/new';
+import SettingsIndexView      from '../views/settings/index';
+import ProjectsNewView        from '../views/projects/new';
+import ProjectsShowView       from '../views/projects/show';
+import ProjectsShowOverview   from '../views/projects/show/overview';
+import ProjectsShowStories    from '../views/projects/show/stories';
+import NotFoundView           from '../views/errors/not_found';
 
 export default function configRoutes(store) {
   const _ensureAuthenticated = (nextState, replace, callback) => {
@@ -42,6 +43,8 @@ export default function configRoutes(store) {
         </Route>
 
         <Route path="settings" component={SettingsIndexView} />
+
+        <Route path="*" component={NotFoundView} />
       </Route>
     </Route>
   );
