@@ -19,7 +19,7 @@ defmodule Kairos.Project.Calculations do
     |> Enum.reduce(0, fn(story, acc) -> estimated_hours(story.estimate || 0) + acc end)
   end
 
-  def total_worked_hours(time_entries) do
+  def total_dedicated_hours(time_entries) do
     time_entries
     |> Enum.reduce(0, fn(time_entry, acc) -> ((time_entry.time || 0) / 3600000) + acc end)
     |> round

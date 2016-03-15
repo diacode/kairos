@@ -10,14 +10,14 @@ export default class ProjectsShowOverview extends React.Component {
   }
 
   _renderStats() {
-    const { total_story_points, total_completed_points, total_estimated_hours, total_worked_hours } = this.props;
+    const { total_story_points, total_completed_points, total_estimated_hours, total_dedicated_hours } = this.props;
 
     return (
       <ul className="stats-container">
       {::this._stat('Total story points', total_story_points)}
       {::this._stat('Total completed points', total_completed_points)}
       {::this._stat('Total estimated hours', total_estimated_hours)}
-        {::this._stat('Total worked hours', total_worked_hours)}
+        {::this._stat('Total dedicated hours', total_dedicated_hours)}
       </ul>
     );
   }

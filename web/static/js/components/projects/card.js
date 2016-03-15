@@ -7,11 +7,11 @@ export default class ProjectCard extends React.Component {
 
     const { dispatch, id } = this.props;
 
-    dispatch(push     (`/project/${id}`));
+    dispatch(push(`/project/${id}`));
   }
 
   render() {
-    const { name, description, total_story_points, total_completed_points } = this.props;
+    const { name, description, total_estimated_hours, total_dedicated_hours } = this.props;
 
     return (
       <li className="project-item" onClick={::this._handleClick}>
@@ -23,12 +23,12 @@ export default class ProjectCard extends React.Component {
 
           <div className="metrics">
             <div>
-              <strong>{total_story_points}</strong>
-              <small>Total SP</small>
+              <strong>{total_estimated_hours}</strong>
+              <small>Estimated hours</small>
             </div>
             <div>
-              <strong>{total_completed_points}</strong>
-              <small>Completed</small>
+              <strong>{total_dedicated_hours}</strong>
+              <small>Dedicated hours</small>
             </div>
           </div>
         </div>

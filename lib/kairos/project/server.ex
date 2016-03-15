@@ -13,7 +13,7 @@ defmodule Kairos.Project.Server do
     total_story_points: 0,
     total_completed_points: 0,
     total_estimated_hours: 0,
-    total_worked_hours: 0,
+    total_dedicated_hours: 0,
     deviation: 0
   ]
 
@@ -48,7 +48,7 @@ defmodule Kairos.Project.Server do
       total_story_points: total_story_points(stories),
       total_completed_points: total_completed_points(stories),
       total_estimated_hours: total_estimated_hours(stories),
-      total_worked_hours: total_worked_hours(time_entries)
+      total_dedicated_hours: total_dedicated_hours(time_entries)
     }
 
     {:ok, state}
