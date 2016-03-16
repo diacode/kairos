@@ -11,7 +11,7 @@ legend
 
 label
   display: block
-  font-weight: 600
+  font-weight: 400
   margin-bottom: $small-spacing / 2
 
 input,
@@ -70,3 +70,30 @@ select
   max-width: 100%
   width: auto
   line-height: 1.1em
+
+[type=checkbox]
+  $size: 18px
+  display: none
+  + label
+    margin-bottom: 0
+    display: inline-block
+
+    &:before
+      +transition
+      content: "\f00c"
+      font-family: FontAwesome
+      display: inline-block
+      height: $size
+      width: $size
+      text-align: center
+      color: #fff
+      border: solid 1px $light-gray
+      background: #fff
+      position: relative
+      line-height: $size
+      vertical-align: baseline
+      cursor: pointer
+      margin-right: $small-spacing/2
+  &:checked + label:before
+
+    color: $green

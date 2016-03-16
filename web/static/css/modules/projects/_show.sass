@@ -77,12 +77,15 @@
           color: $dark-brown
 
   .stories-container
+    +span-columns(9)
     background: transparent
     margin-bottom: $base-spacing*2
 
     li
       +clearfix
       +fill-parent
+      animation-duration: $base-duration
+      animation-name: fadeIn
       padding: $small-spacing $base-spacing
 
       > div
@@ -93,18 +96,25 @@
         border: 1px solid $light-brown
         border-bottom: 0px none
 
-        &:last-of-type
-          border-bottom: 1px solid $light-brown
-
         &:nth-child(odd)
-          background: rgba($light-gray, .3)
+          background: lighten($light-gray, 5)
         &:nth-child(even)
           background: #fff
+
+      &:nth-child(2)
+        border-radius: $base-border-radius $base-border-radius 0 0
+      &:last-of-type
+        border-bottom: 1px solid $light-brown
+        border-radius: 0 0 $base-border-radius $base-border-radius
 
       &.header
         border: 0px none
         text-transform: uppercase
         font-family: $heading-font-family
+
+      .info
+        +span-columns(8)
+        text-transform: none
 
       .id
         +span-columns(1.5)
@@ -116,7 +126,7 @@
           color: $red
 
       .name
-        +span-columns(7)
+        +span-columns(6.5)
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
@@ -127,5 +137,20 @@
           text-transform: uppercase
           font-family: $heading-font-family
       .estimation, .dedicated-hours
-        +span-columns(1.25)
+        +span-columns(1.5)
         text-align: center
+
+  .filters-container
+    +span-columns(3)
+    background: #fff
+    padding: $base-spacing
+    border-radius: $base-border-radius
+    border: 1px solid $light-brown
+    margin-top: 3em
+
+    section
+      margin-bottom: $base-spacing
+
+    ul
+      li
+        margin-bottom: .5em
