@@ -37,6 +37,31 @@ export default class ProjectsShowView extends React.Component {
     );
   }
 
+  _renderStats() {
+    const { total_story_points, total_completed_points, total_estimated_hours, total_dedicated_hours, velocity } = this.props;
+
+    return (
+      <ul className="stats-container">
+        {::this._stat('Total points', `${total_completed_points}/${total_story_points}`)}
+        {::this._stat('Total hours', `${total_dedicated_hours}/${total_estimated_hours}`)}
+        {::this._stat('Velocity', `${velocity}%`, velocity > 100 ? 'ok' : 'error')}
+      </ul>
+    );
+  }
+
+  _stat(name, value, className) {
+    return (
+      <li>
+        <div className="inner">
+          <div>
+            <strong className={className}>{value}</strong>
+            <small>{name}</small>
+          </div>
+        </div>
+      </li>
+    );
+  }
+
   render() {
     const { currentUser, name, description, stories, id, error } = this.props;
 
@@ -49,16 +74,14 @@ export default class ProjectsShowView extends React.Component {
           <div className="container">
             <h1>{name}</h1>
             <p>{description}</p>
+            {::this._renderStats()}
           </div>
         </header>
         <nav id="project_nav">
           <div className="container">
             <ul>
               <li>
-                <IndexLink to={`/project/${id}`} activeClassName="active">Overview</IndexLink>
-              </li>
-              <li>
-                <Link to={`/project/${id}/stories`} activeClassName="active">Stories</Link>
+                <IndexLink to={`/project/${id}`} activeClassName="active">Stories</IndexLink>
               </li>
             </ul>
           </div>

@@ -9,7 +9,6 @@ import SessionsNew            from '../views/sessions/new';
 import SettingsIndexView      from '../views/settings/index';
 import ProjectsNewView        from '../views/projects/new';
 import ProjectsShowView       from '../views/projects/show';
-import ProjectsShowOverview   from '../views/projects/show/overview';
 import ProjectsShowStories    from '../views/projects/show/stories';
 import NotFoundView           from '../views/errors/not_found';
 
@@ -38,8 +37,7 @@ export default function configRoutes(store) {
           <Route path="new" component={ProjectsNewView} />
         </Route>
         <Route path="project/:id" component={ProjectsShowView}>
-          <IndexRoute component={ProjectsShowOverview} />
-          <Route path="stories" component={ProjectsShowStories} />
+          <IndexRoute component={ProjectsShowStories} />
         </Route>
 
         <Route path="settings" component={SettingsIndexView} />

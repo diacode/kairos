@@ -16,8 +16,16 @@ export default class ProjectsShowStories extends React.Component {
   _renderStories() {
     const { projectStories } = this.props;
 
+    if (projectStories.length == 0) return this._renderNoResults();
+
+    let totalEstimatedHours = 0;
+    let totalDedicatedHours = 0;
+
     const items = projectStories.map((story) => {
       const { id, name, estimate, status, dedicatedHours, estimatedHours } = story;
+
+      totalEstimatedHours += estimatedHours;
+      totalDedicatedHours += dedicatedHours;
 
       const statusClasses = classnames({
         id: true,
@@ -44,14 +52,29 @@ export default class ProjectsShowStories extends React.Component {
 
     return (
       <ul className="stories-container">
-          <li className="header" key="header">
+          <li className="header unstyled" key="header">
             <div className="info">Displaying {projectStories.length} stories</div>
             <div className="status"> </div>
             <div className="estimation">Estimated</div>
             <div className="dedicated-hours">Dedicated</div>
           </li>
           {items}
+          <li className="footer unstyled" key="footer">
+            <div className="info"> </div>
+            <div className="status"> </div>
+            <div className="estimation">{totalEstimatedHours}hrs.</div>
+            <div className="dedicated-hours">{totalDedicatedHours}hrs.</div>
+          </li>
       </ul>
+    );
+  }
+
+  _renderNoResults() {
+    return (
+      <div className="view-container error-container">
+        <i className="fa fa-meh-o"/>
+        <p>Oops! No stories found</p>
+      </div>
     );
   }
 
