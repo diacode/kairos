@@ -4,6 +4,9 @@
     margin-top: -$base-spacing * 2
     padding: $base-spacing 0
 
+    .container
+      position: relative
+
     h1
       color: $dark-brown
       text-transform: uppercase
@@ -38,7 +41,7 @@
             color: $light-brown
 
           &.active
-            $color: shade($dark-brown, 20)
+            $color: rgba(#fff, .5)
             border-bottom: 3px solid $color
             color: $color
   section
@@ -49,13 +52,16 @@
   .stats-container
     +display(flex)
     +flex-wrap(wrap)
-    +fill-parent
-    margin: 0 -15px 0 -15px
+    margin: 0 -.5em 0 -.5em
+    position: absolute
+    width: 650px
+    right: 0
+    top: 0
 
     li
-      +flex(0 0 25%)
+      +flex(0 0 33.333333%)
       +align-self(stretch)
-      padding: 0 15px
+      padding: 0 .5em
 
       .inner
         +transition
@@ -63,18 +69,20 @@
         +align-items(center)
         +justify-content(center)
         background: #fff
-        min-height: 150px
         padding: $base-spacing
         border-radius: $base-border-radius
-        border: 1px solid $light-brown
         text-align: center
+        color: $dark-brown
 
         strong
           font-family: $heading-font-family
           display: block
           font-weight: 400
-          font-size: 2em
-          color: $dark-brown
+          font-size: 1.7em
+        small
+          line-height: 1.5em
+          display: inline-block
+          color: $base-font-color
 
   .stories-container
     +span-columns(9)
@@ -92,7 +100,7 @@
         vertical-align: middle
 
 
-      &:not(.header)
+      &:not(.unstyled)
         border: 1px solid $light-brown
         border-bottom: 0px none
 
@@ -103,7 +111,7 @@
 
       &:nth-child(2)
         border-radius: $base-border-radius $base-border-radius 0 0
-      &:last-of-type
+      &:nth-last-child(2)
         border-bottom: 1px solid $light-brown
         border-radius: 0 0 $base-border-radius $base-border-radius
 
@@ -112,6 +120,10 @@
         text-transform: uppercase
         font-family: $heading-font-family
 
+      &.footer
+        border: 0px none
+        background: transparent
+
       .info
         +span-columns(8)
         text-transform: none
@@ -119,11 +131,6 @@
       .id
         +span-columns(1.5)
         font-family: $heading-font-family
-
-        &.ok
-          color: $green
-        &.error
-          color: $red
 
       .name
         +span-columns(6.5)
@@ -138,7 +145,7 @@
           font-family: $heading-font-family
       .estimation, .dedicated-hours
         +span-columns(1.5)
-        text-align: center
+        text-align: right
 
   .filters-container
     +span-columns(3)
