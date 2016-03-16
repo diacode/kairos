@@ -25,6 +25,13 @@ defmodule Kairos.Project.Calculations do
     |> round
   end
 
+  def total_velocity(total_story_points, total_completed_points, total_estimated_hours, total_dedicated_hours) do
+    points_percent = div(total_completed_points * 100, total_story_points)
+    hours_percent = div(total_dedicated_hours * 100, total_estimated_hours)
+
+    100 - (hours_percent - points_percent)
+  end
+
   defp estimated_hours(1), do: 4
   defp estimated_hours(2), do: 8
   defp estimated_hours(3), do: 16

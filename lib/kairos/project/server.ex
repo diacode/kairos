@@ -14,7 +14,7 @@ defmodule Kairos.Project.Server do
     total_completed_points: 0,
     total_estimated_hours: 0,
     total_dedicated_hours: 0,
-    deviation: 0
+    velocity: 0
   ]
 
   @doc """
@@ -37,6 +37,10 @@ defmodule Kairos.Project.Server do
 
     stories = get_stories(project.pivotal_tracker_id)
     time_entries = get_time_entries(project.toggl_id, project.start_date)
+    total_story_points = total_story_points(stories)
+    total_completed_points = total_completed_points(stories)
+    total_estimated_hours = total_estimated_hours(stories)
+    total_dedicated_hours = total_dedicated_hours(time_entries)
 
     state = %__MODULE__{
       id: project.id,
@@ -45,10 +49,11 @@ defmodule Kairos.Project.Server do
       start_date: project.start_date,
       stories: stories,
       time_entries: time_entries,
-      total_story_points: total_story_points(stories),
-      total_completed_points: total_completed_points(stories),
-      total_estimated_hours: total_estimated_hours(stories),
-      total_dedicated_hours: total_dedicated_hours(time_entries)
+      total_story_points: total_story_points,
+      total_completed_points: total_completed_points,
+      total_estimated_hours: total_estimated_hours,
+      total_dedicated_hours: total_dedicated_hours,
+      velocity: total_velocity(total_story_points, total_completed_points, total_estimated_hours, total_dedicated_hours)
     }
 
     {:ok, state}
