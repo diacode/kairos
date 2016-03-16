@@ -7,9 +7,7 @@ const initialState = {
   error: null,
 };
 
-function buildProjectStories(project) {
-  const { stories, time_entries } = project;
-
+function buildProjectStories(stories, time_entries) {
   return stories.map((story) => {
     const id = `#${story.id} ${story.name}`;
     const timeEntry = time_entries.find((item) => {return item.title.time_entry === id;});
@@ -26,10 +24,17 @@ function buildProjectStories(project) {
   });
 }
 
+function applyFilter(filter, stories) {
+  console.log(filter);
+  return stories.filter((item) => {
+    return filter.statuses.indexOf(item.status) != -1 && filter.estimations.indexOf(item.estimationState()) != -1;
+  });
+}
+
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case Constants.CURRENT_PROJECT_SET:
-      const projectStories = buildProjectStories(action.project);
+      const projectStories = buildProjectStories(action.project.stories, action.project.time_entries);
 
       return { ...state, ...action.project, channel: action.channel, error: null, projectStories: projectStories };
 
@@ -39,6 +44,10 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.CURRENT_PROJECT_RESET:
       return { ...initialState };
 
+    case Constants.CURRENT_PROJECT_FILTER_STORIES:
+      const newProjectStories = applyFilter(action.data, buildProjectStories(state.stories, state.time_entries));
+
+      return { ...state, projectStories: newProjectStories };
     default:
       return state;
   }

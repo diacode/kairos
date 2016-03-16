@@ -20,4 +20,16 @@ export default class ProjectStory {
         return 0;
     }
   }
+
+  overEstimation() {
+    return this.dedicatedHours > this.estimatedHours;
+  }
+
+  underEstimation() {
+    return this.dedicatedHours <= this.estimatedHours && this.dedicatedHours > 0;
+  }
+
+  estimationState() {
+    return this.overEstimation() ? 'over' : 'under';
+  }
 }

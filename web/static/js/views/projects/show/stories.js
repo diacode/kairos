@@ -1,7 +1,10 @@
 import React, {PropTypes}        from 'react';
 import { connect }               from 'react-redux';
-import { setDocumentTitle }      from '../../../utils';
 import classnames                from 'classnames';
+import { setDocumentTitle }      from '../../../utils';
+import StoriesFilter             from '../../../components/stories/filter';
+import ReactCSSTransitionGroup   from 'react-addons-css-transition-group';
+import { filterStories }         from '../../../actions/current_project';
 
 export default class ProjectsShowStories extends React.Component {
   componentDidMount() {
@@ -18,8 +21,8 @@ export default class ProjectsShowStories extends React.Component {
 
       const statusClasses = classnames({
         id: true,
-        ok: dedicatedHours <= estimatedHours && dedicatedHours > 0,
-        error: dedicatedHours > estimatedHours,
+        ok: story.underEstimation(),
+        error: story.overEstimation(),
       });
 
       return (
@@ -33,7 +36,7 @@ export default class ProjectsShowStories extends React.Component {
           <div className="status">
             <small>{status}</small>
           </div>
-          <div className="estimation">{estimate | 0}<small>pts.</small> / {estimatedHours}<small>hrs.</small></div>
+          <div className="estimation">{estimatedHours}<small>hrs.</small></div>
           <div className="dedicated-hours">{dedicatedHours}<small>hrs.</small></div>
         </li>
       );
@@ -41,21 +44,27 @@ export default class ProjectsShowStories extends React.Component {
 
     return (
       <ul className="stories-container">
-        <li className="header" key="header">
-          <div className="id"> </div>
-          <div className="name"> </div>
-          <div className="status"> </div>
-          <div className="estimation">Estimated</div>
-          <div className="dedicated-hours">Dedicated</div>
-        </li>
-        {items}
+          <li className="header" key="header">
+            <div className="info">Displaying {projectStories.length} stories</div>
+            <div className="status"> </div>
+            <div className="estimation">Estimated</div>
+            <div className="dedicated-hours">Dedicated</div>
+          </li>
+          {items}
       </ul>
     );
+  }
+
+  _handleFilterChange(data) {
+    const { dispatch } = this.props;
+
+    dispatch(filterStories(data));
   }
 
   render() {
     return (
       <div className="container">
+        <StoriesFilter onFilterChange={::this._handleFilterChange}/>
         {::this._renderStories()}
       </div>
     );

@@ -21,6 +21,15 @@ export function fetchProject(socket, id) {
   };
 }
 
+export function filterStories(data) {
+  return dispatch => {
+    dispatch({
+      type: Constants.CURRENT_PROJECT_FILTER_STORIES,
+      data: data,
+    });
+  };
+}
+
 export function reset() {
   return dispatch => {
     dispatch({ type: Constants.CURRENT_PROJECT_RESET });
