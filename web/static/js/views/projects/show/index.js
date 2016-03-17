@@ -52,9 +52,9 @@ export default class ProjectsShowView extends React.Component {
   _stat(name, value, className) {
     return (
       <li>
-        <div className="inner">
+        <div className={`inner ${className}`}>
           <div>
-            <strong className={className}>{value}</strong>
+            <strong>{value}</strong>
             <small>{name}</small>
           </div>
         </div>

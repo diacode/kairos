@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-import { push }            from 'react-router-redux';
+import { push }           from 'react-router-redux';
+import classnames         from 'classnames';
 
 export default class ProjectCard extends React.Component {
   _handleClick(e) {
@@ -11,7 +12,13 @@ export default class ProjectCard extends React.Component {
   }
 
   render() {
-    const { name, description, total_estimated_hours, total_dedicated_hours } = this.props;
+    const { name, description, total_estimated_hours, total_dedicated_hours, velocity } = this.props;
+
+    const velocityClasses = classnames({
+      velocity: true,
+      ok: velocity >= 100,
+      error: velocity < 100,
+    });
 
     return (
       <li className="project-item" onClick={::this._handleClick}>
@@ -23,12 +30,12 @@ export default class ProjectCard extends React.Component {
 
           <div className="metrics">
             <div>
-              <strong>{total_estimated_hours}</strong>
-              <small>Estimated hours</small>
+              <strong>{total_dedicated_hours}/{total_estimated_hours}</strong>
+              <small>Hours</small>
             </div>
-            <div>
-              <strong>{total_dedicated_hours}</strong>
-              <small>Dedicated hours</small>
+            <div className={velocityClasses}>
+              <strong>{velocity}%</strong>
+              <small>Velocity</small>
             </div>
           </div>
         </div>
