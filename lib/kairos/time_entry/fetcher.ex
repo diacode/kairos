@@ -4,7 +4,6 @@ defmodule Kairos.TimeEntry.Fetcher do
   """
 
   require Logger
-  require IEx
   alias Timex.Date
 
   @toggl_api_token Application.get_env(:kairos, :toggl_api_token)
@@ -45,11 +44,17 @@ defmodule Kairos.TimeEntry.Fetcher do
     client
     |> Togglex.Reports.summary(%{workspace_id: @toggl_workspace_id, project_ids: project_id, since: since_string, until: until_string})
     |> Map.get(:data)
-    |> List.first
-    |> Map.get(:items)
+    |> get_items
   end
 
   defp build_client do
     Togglex.Client.new(%{access_token: @toggl_api_token}, :reports)
+  end
+
+  defp get_items(data) when length(data) == 0, do: []
+  defp get_items(data) do
+    data
+    |> List.first
+    |> Map.get(:items)
   end
 end
