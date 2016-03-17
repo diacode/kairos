@@ -56,7 +56,10 @@ defmodule Kairos.Project.Server do
   def handle_info(:refresh, state) do
     Logger.debug "Refreshing server data for project #{state.id}"
 
-    {:noreply, build_data(state)}
+    state = build_data(state)
+    Kairos.Project.Event.updated(state)
+
+    {:noreply, state}
   end
 
   defp build_data(project) do
