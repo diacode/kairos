@@ -52,9 +52,12 @@ defmodule Kairos.Project.Starter do
     Logger.debug "Start refreshing projects"
 
     projects
-    |> Enum.each(&do_refresh_project(&1))
+    |> Enum.map(&do_refresh_project(&1))
+    |> Enum.map(&Task.await/1)
 
     plan_refresh_projects
+
+    Kairos.Project.Event.updated
 
     {:noreply, state}
   end
@@ -73,11 +76,13 @@ defmodule Kairos.Project.Starter do
   end
 
   def do_refresh_project(project_id) do
-    spawn fn ->
-      project_id
-      |> Kairos.Project.Server.ref
-      |> GenServer.whereis
-      |> send(:refresh)
-    end
+    Task.async(
+      fn ->
+        project_id
+        |> Kairos.Project.Server.ref
+        |> GenServer.whereis
+        |> send(:refresh)
+      end
+    )
   end
 end

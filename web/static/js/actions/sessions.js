@@ -1,8 +1,9 @@
-import { push }                            from 'react-router-redux';
+import { push }                           from 'react-router-redux';
 import Constants                          from '../constants';
 import { Socket }                         from 'phoenix';
 import { httpGet, httpPost, httpDelete }  from '../utils';
 import User                               from '../utils/user';
+import { setProjects }                    from './projects';
 
 export function setCurrentUser(dispatch, user) {
   const socket = new Socket('/socket', {
@@ -25,6 +26,10 @@ export function setCurrentUser(dispatch, user) {
           socket: socket,
         });
     });
+
+    channel.on('update_projects', (payload) => {
+      dispatch(setProjects(payload.projects));
+    });
   }
 };
 
@@ -42,7 +47,7 @@ const Actions = {
       .then((data) => {
         localStorage.setItem('phoenixAuthToken', data.jwt);
         setCurrentUser(dispatch, data.user);
-        dispatch(push     ('/projects'));
+        dispatch(push('/projects'));
       })
       .catch((error) => {
         error.response.json()
@@ -66,7 +71,7 @@ const Actions = {
       })
       .catch(function (error) {
         console.log(error);
-        dispatch(push     ('/sign_in'));
+        dispatch(push('/sign_in'));
       });
     };
   },
@@ -82,7 +87,7 @@ const Actions = {
 
         dispatch({ type: Constants.USER_SIGNED_OUT });
 
-        dispatch(push     ('/sign_in'));
+        dispatch(push('/sign_in'));
       })
       .catch(function (error) {
         console.log(error);

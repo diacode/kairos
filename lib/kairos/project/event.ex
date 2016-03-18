@@ -11,7 +11,7 @@ defmodule Kairos.Project.Event do
     {:ok, manager}
   end
 
-  def updated(project) do
-    GenEvent.notify(__MODULE__, {:updated, %{project: project}})
+  def updated() do
+    GenEvent.notify(__MODULE__, :updated)
   end
 end

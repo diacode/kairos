@@ -24,6 +24,7 @@ export function fetchProject(socket, id) {
     });
 
     channel.on('update', (payload) => {
+      console.log(payload);
       dispatch(setCurrentProject(channel, payload.project));
     });
   };

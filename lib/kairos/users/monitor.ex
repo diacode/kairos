@@ -19,7 +19,7 @@ defmodule Kairos.Users.Monitor do
   end
 
   def get_state do
-    GenServer.cast(__MODULE__, :get_state)
+    GenServer.call(__MODULE__, :get_state)
   end
 
   # Server

@@ -7,7 +7,16 @@ class AuthenticatedContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch, children } = nextProps;
 
-    if (children == null) dispatch(push     ('/projects'));
+    if (children == null) dispatch(push('/projects'));
+  }
+
+  componentWillUnmount() {
+    const { currentUser, socket } = this.props;
+
+    if (currentUser != null) {
+      channel.leave();
+      socket.disconnect();
+    }
   }
 
   render() {
