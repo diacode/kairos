@@ -35,28 +35,60 @@ $header-height: $base-line-height * 3em
       li
         display: inline-block
 
-        &:not(:last-of-type)
-          a
-            margin-right: 1em
+        .current-user
+          display: inline-block
 
-        a
-          +transition
-          font-family: $heading-font-family
-          color: $brown
-          border-radius: $base-border-radius
-          padding: .3em .5em
-          line-height: 1em
-          text-transform: uppercase
-          font-size: .85em
-
-
-          &.current-user
-            .react-gravatar
-              width: 50px
-              height: 50px
-              border-radius: 50%
-              vertical-align: middle
-
+          .react-gravatar
+            width: 50px
+            height: 50px
+            border-radius: 50%
+            vertical-align: middle
 
           .fa
             color: #fff
+
+        &.menu-wrapper
+          position: relative
+
+          > a
+            +transition
+            position: relative
+
+            &:after
+              content: ""
+              width: 0
+              height: 0
+              border: solid 6px
+              border-color: $brown transparent transparent
+              margin-right: 30px
+              margin-top: -3px
+              display: inline-block
+              position: static
+              right: auto
+              margin: 0 0 -6px 12px
+              line-height: 45px
+
+          .dropdown
+            position: absolute
+            display: block
+            z-index: 99
+            background: #fff
+            right: 0
+            width: 12em
+            animation-duration: .3s
+            animation-name: fadeIn
+            padding: .5em 0
+            box-shadow: 0 2px 0 2px rgba($dark-gray, .1)
+            border-radius: 0 0 $base-border-radius $base-border-radius
+
+            li
+              display: block
+
+            a
+              +transition
+              padding: 1em
+              display: block
+              line-height: 1em
+
+              &:hover
+                background: rgba($light-brown, .5)

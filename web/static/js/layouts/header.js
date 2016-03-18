@@ -2,30 +2,39 @@ import React            from 'react';
 import { connect }      from 'react-redux';
 import { Link }         from 'react-router';
 import ReactGravatar    from 'react-gravatar';
-import { push }          from 'react-router-redux';
-
+import { push }         from 'react-router-redux';
+import PageClick        from 'react-page-click';
+import classnames       from 'classnames';
 import SessionActions   from '../actions/sessions';
-import HeaderActions    from '../actions/header';
+import { showDropdown } from '../actions/header';
 
 class Header extends React.Component {
   _renderCurrentUser() {
-    const { currentUser } = this.props;
+    const { currentUser, showMenu } = this.props;
+
+    if (!currentUser) {
+      return false;
+    }
+
+    const classes = classnames({
+      'current-user': true,
+      visible: showMenu,
+    });
 
     return (
-      <a className="current-user">
+      <a href="#" onClick={::this._handleShowDropdownClick} className={classes}>
         <ReactGravatar className="react-gravatar" email={currentUser.email} https />
       </a>
     );
   }
 
-  _renderSignOutLink() {
-    if (!this.props.currentUser) {
-      return false;
-    }
+  _handleShowDropdownClick(e) {
+    e.preventDefault();
+    const { dispatch, showMenu } = this.props;
 
-    return (
-      <a href="#" onClick={::this._handleSignOutClick}><i className="fa fa-sign-out"/> Sign out</a>
-    );
+    if (showMenu) return false;
+
+    dispatch(showDropdown(!showMenu));
   }
 
   _handleSignOutClick(e) {
@@ -36,7 +45,32 @@ class Header extends React.Component {
     dispatch(SessionActions.signOut(socket, currentUser.channel));
   }
 
+  _renderDropdown(show) {
+    if (!show) return false;
+
+    return (
+      <PageClick onClick={::this._handlePageClick}>
+        <ul className="dropdown">
+          <li>
+            <Link to="/settings" onClick={::this._handlePageClick}>Settings</Link>
+          </li>
+          <li>
+            <a href="#" onClick={::this._handleSignOutClick}>Sign out</a>
+          </li>
+        </ul>
+      </PageClick>
+    );
+  }
+
+  _handlePageClick() {
+    const { dispatch } = this.props;
+
+    dispatch(showDropdown(false));
+  }
+
   render() {
+    const { showMenu } = this.props;
+
     return (
       <header className="main-header">
         <Link to="/projects">
@@ -44,11 +78,9 @@ class Header extends React.Component {
         </Link>
         <nav className="right">
           <ul>
-            <li>
+            <li className="menu-wrapper">
               {this._renderCurrentUser()}
-            </li>
-            <li>
-              {this._renderSignOutLink()}
+              {this._renderDropdown(showMenu)}
             </li>
           </ul>
         </nav>
@@ -58,7 +90,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => (
-  state.session
+  { ...state.session, ...state.header }
 );
 
 export default connect(mapStateToProps)(Header);
