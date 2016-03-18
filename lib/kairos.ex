@@ -14,6 +14,7 @@ defmodule Kairos do
       supervisor(Kairos.Project.Supervisor, []),
       # Here you could define other workers and supervisors as children
       # worker(Kairos.Worker, [arg1, arg2, arg3]),
+      worker(Kairos.Users.Monitor, []),
       worker(Kairos.Project.Starter, []),
       worker(Kairos.Project.Event, [])
     ]

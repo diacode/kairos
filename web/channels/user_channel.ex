@@ -10,6 +10,8 @@ defmodule Kairos.UserChannel do
     current_user = socket.assigns.current_user
 
     if String.to_integer(user_id) == current_user.id do
+      Kairos.Users.Monitor.add_user(current_user.id)
+
       {:ok, socket}
     else
       {:error, %{reason: "Invalid user"}}
@@ -67,5 +69,13 @@ defmodule Kairos.UserChannel do
     else
       {:reply, {:error, %{reason: "Forbidden"}}, socket}
     end
+  end
+
+  def terminate(_reason, socket) do
+    current_user = socket.assigns.current_user
+
+    Kairos.Users.Monitor.remove_user(current_user.id)
+
+    :ok
   end
 end
