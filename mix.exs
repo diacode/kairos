@@ -29,7 +29,8 @@ defmodule Kairos.Mixfile do
        :comeonin,
        :extracker,
        :togglex,
-       :timex
+       :timex,
+       :slacker
      ]
    ]
   end
@@ -59,7 +60,9 @@ defmodule Kairos.Mixfile do
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:credo, "~> 0.3", only: [:dev, :test]},
       {:togglex, "~> 0.1.0"},
-      {:timex, "~> 2.1.1"}
+      {:timex, "~> 2.1.1"},
+      {:slacker,  "~> 0.0.2"},
+      {:websocket_client, github: "jeremyong/websocket_client"}
     ]
   end
 
