@@ -69,7 +69,7 @@ defmodule Kairos.Project.Starter do
   end
 
   defp plan_refresh_projects do
-    Process.send_after(self(), :refresh_projects, 60 * 60 * 1000)
+    Process.send_after(self(), :refresh_projects, 5 * 60 * 1000)
   end
 
   def do_refresh_project(project_id) do
