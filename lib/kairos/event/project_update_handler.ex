@@ -3,7 +3,9 @@ defmodule Kairos.Event.ProjectUpdateHandler do
   require Logger
 
   def handle_event({:updated, %{project: project}}, state) do
-    Logger.debug "#{inspect project}"
+    Logger.debug "Handling updated event for project #{project.id}"
+
+    Kairos.ProjectChannel.broadcast_update(project)
 
     {:ok, state}
   end

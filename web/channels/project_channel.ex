@@ -15,6 +15,9 @@ defmodule Kairos.ProjectChannel do
       project ->
         {:ok, project, assign(socket, :project, project)}
     end
+  end
 
+  def broadcast_update(project) do
+    Kairos.Endpoint.broadcast("project:#{project.id}", "update", %{project: project})
   end
 end
