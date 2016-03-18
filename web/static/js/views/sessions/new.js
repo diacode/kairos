@@ -1,6 +1,5 @@
 import React, {PropTypes}   from 'react';
 import { connect }          from 'react-redux';
-import { Link }             from 'react-router';
 
 import { setDocumentTitle } from '../../utils';
 import Actions              from '../../actions/sessions';
@@ -56,7 +55,6 @@ class SessionsNew extends React.Component {
             </div>
             <button type="submit">Sign in</button>
           </form>
-          <Link to="/sign_up">Create new account</Link>
         </main>
       </div>
     );

@@ -52,7 +52,7 @@ defmodule Kairos.Project.Starter do
     Logger.debug "Start refreshing projects"
 
     projects
-    |> Enum.map(&do_refresh_project(&1))
+    |> Enum.map(&do_refresh_project/1)
     |> Enum.map(&Task.await/1)
 
     plan_refresh_projects
