@@ -57,8 +57,9 @@ class HomeIndexView extends React.Component {
 
   _renderFetching() {
     return (
-      <div>
-        Fetching
+      <div className="view-container error-container">
+        <i className="fa fa-cog fa-spin"/>
+        <p>Fetching projects</p>
       </div>
     );
   }
