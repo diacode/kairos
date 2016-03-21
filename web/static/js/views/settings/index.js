@@ -18,9 +18,9 @@ class SettingsIndexView extends React.Component {
         last_name: lastName.value.trim(),
       },
     };
-    const { currentUser, dispatch } = this.props;
+    const { socket, currentUser, dispatch } = this.props;
 
-    dispatch(update(currentUser, data));
+    dispatch(update(socket, currentUser, data));
   }
 
   render() {
