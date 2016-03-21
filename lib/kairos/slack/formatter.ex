@@ -36,7 +36,7 @@ defmodule Kairos.Slack.MessageFormatter do
       fields: [
         %{
           title: "Total points",
-          value: "#{total_story_points}/#{total_completed_points}",
+          value: "#{total_completed_points}/#{total_story_points}",
           short: true
         },
         %{
