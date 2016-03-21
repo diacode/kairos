@@ -20,15 +20,7 @@ defmodule Kairos.Slack.Client do
   # def handle_cast({:message, _}, state), do: {:noreply, state}
 
   def handle_cast({:projects_updated, projects}, state) do
-
-    params = [
-      channel: @channel_id,
-      as_user: true,
-      text: MessageFormatter.projects_updated(projects),
-      attachments: MessageFormatter.projects_list(projects)
-    ]
-
-    Slacker.Web.chat_post_message(@token, params)
+    post_message(projects, MessageFormatter.projects_updated(projects))
 
     {:noreply, state}
   end
@@ -36,10 +28,14 @@ defmodule Kairos.Slack.Client do
   def projects_overview(_tars, _msg) do
     projects = Kairos.Project.Starter.get_projects
 
+    post_message(projects, MessageFormatter.projects_overview(projects))
+  end
+
+  defp post_message(projects, text) do
     params = [
       channel: @channel_id,
       as_user: true,
-      text: MessageFormatter.projects_overview(projects),
+      text: text,
       attachments: MessageFormatter.projects_list(projects)
     ]
 
