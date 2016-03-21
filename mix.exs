@@ -23,6 +23,7 @@ defmodule Kairos.Mixfile do
        :phoenix_html,
        :cowboy,
        :logger,
+       :guardian,
        :gettext,
        :phoenix_ecto,
        :postgrex,
