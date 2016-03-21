@@ -29,7 +29,7 @@ defmodule Kairos.Slack.MessageFormatter do
 
     %{
       fallback: name,
-      title: "#{name} status",
+      title: "##{to_string(id)} #{name}",
       title_link: @slack_projects_url <> to_string(id),
       text: description,
       color: project_status_color(velocity),

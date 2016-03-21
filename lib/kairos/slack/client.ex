@@ -9,6 +9,7 @@ defmodule Kairos.Slack.Client do
   @slack_bot_id Application.get_env(:kairos, :slack_bot_id)
 
   match ~r/Projects overview/, :projects_overview
+  match ~r/Project ([0-9]+) status/, :project_status
 
   def start_link, do: start_link(@token, name: __MODULE__)
 
@@ -29,6 +30,12 @@ defmodule Kairos.Slack.Client do
     projects = Kairos.Project.Starter.get_projects
 
     post_message(projects, MessageFormatter.projects_overview(projects))
+  end
+
+  def project_status(_tars, _msg, project_id) do
+    {project_id, _} =  Integer.parse(project_id)
+
+    post_message([project_id], "")
   end
 
   defp post_message(projects, text) do
