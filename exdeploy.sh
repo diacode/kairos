@@ -28,7 +28,7 @@ deploy() {
 
   ### Copy current code
   echo -e "--> Uploading sources\n"
-  rsync -azq --exclude='.git/' --exclude="_build/" --exclude="deps/" --exclude="app/node_modules" ./ ${REMOTE_USER}@${SERVER}:${BUILD_DIR}
+  rsync -azq --exclude='.git/' --exclude="_build/" --exclude="deps/" --exclude="node_modules" ./ ${REMOTE_USER}@${SERVER}:${BUILD_DIR}
 
   ### Copy prod.secret.exs
   echo -e "--> Copying shared/prod.config.exs"
@@ -39,7 +39,7 @@ deploy() {
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && mix deps.get --only prod"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && MIX_ENV=prod mix compile"
   echo -e "--> Compiling assets on remote\n"
-  ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR}/app && npm install"
+  ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && npm install"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && cd app && node node_modules/brunch/bin/brunch build --production"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && MIX_ENV=prod mix phoenix.digest"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && MIX_ENV=prod mix release"
