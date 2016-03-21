@@ -22,13 +22,11 @@ deploy() {
   mix clean
   rm -rf priv/images
   rm -rf priv/static/*
-  rm priv/server.js
-  rm priv/webpack.stats.json
   # ... add any other files here you feel should be removed
 
   ### Copy current code
   echo -e "--> Uploading sources\n"
-  rsync -azq --exclude='.git/' --exclude="_build/" --exclude="deps/" --exclude="node_modules" ./ ${REMOTE_USER}@${SERVER}:${BUILD_DIR}
+  rsync -azq --delete-before --exclude='.git/' --exclude="_build/" --exclude="deps/" --exclude="node_modules" ./ ${REMOTE_USER}@${SERVER}:${BUILD_DIR}
 
   ### Copy prod.secret.exs
   echo -e "--> Copying shared/prod.config.exs"
@@ -38,9 +36,15 @@ deploy() {
   echo -e "--> Building on remote\n"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && mix deps.get --only prod"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && MIX_ENV=prod mix compile"
-  echo -e "--> Compiling assets on remote\n"
-  ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && npm install"
-  ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && node node_modules/brunch/bin/brunch build --production"
+
+  echo -e "--> Compiling assets locally\n"
+  npm install
+  node node_modules/brunch/bin/brunch build --production
+
+  echo -e "--> Uploading compiled assets to BUILD_DIR\n"
+  rsync -azq ./priv/static ${REMOTE_USER}@${SERVER}:${BUILD_DIR}/priv
+
+  echo -e "--> Assets digest and release generation\n"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && MIX_ENV=prod mix phoenix.digest"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && MIX_ENV=prod mix release"
 
