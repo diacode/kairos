@@ -6,7 +6,7 @@ defmodule Kairos.Slack.MessageFormatter do
     "We currently have *#{number_of_projects}* projects:"
   end
 
-  def projects_updated(_projects), do: "Projects data updated:"
+  def projects_updated(_projects), do: ":metal: Projects data updated!"
 
   def projects_list(projects) do
     projects
