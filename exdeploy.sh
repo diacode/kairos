@@ -40,7 +40,7 @@ deploy() {
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && MIX_ENV=prod mix compile"
   echo -e "--> Compiling assets on remote\n"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && npm install"
-  ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && cd app && node node_modules/brunch/bin/brunch build --production"
+  ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && node node_modules/brunch/bin/brunch build --production"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && MIX_ENV=prod mix phoenix.digest"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && MIX_ENV=prod mix release"
 
