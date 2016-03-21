@@ -16,7 +16,8 @@ defmodule Kairos do
       # worker(Kairos.Worker, [arg1, arg2, arg3]),
       worker(Kairos.Users.Monitor, []),
       worker(Kairos.Project.Starter, []),
-      worker(Kairos.Project.Event, [])
+      worker(Kairos.Project.Event, []),
+      worker(Kairos.Slack.Client, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
