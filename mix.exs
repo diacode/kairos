@@ -32,7 +32,8 @@ defmodule Kairos.Mixfile do
        :togglex,
        :timex,
        :slacker,
-       :hound
+       :hound,
+       :quantum
      ]
    ]
   end
@@ -65,7 +66,8 @@ defmodule Kairos.Mixfile do
       {:timex, "~> 2.1.1"},
       {:slacker,  "~> 0.0.2"},
       {:websocket_client, github: "jeremyong/websocket_client"},
-      {:exrm, "~> 1.0.2"}
+      {:exrm, "~> 1.0.2"},
+      {:quantum, "~> 1.7.0"}
     ]
   end
 

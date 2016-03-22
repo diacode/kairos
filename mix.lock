@@ -41,6 +41,7 @@
   "poolboy": {:hex, :poolboy, "1.5.1"},
   "postgrex": {:hex, :postgrex, "0.11.1"},
   "providers": {:hex, :providers, "1.6.0"},
+  "quantum": {:hex, :quantum, "1.7.0"},
   "ranch": {:hex, :ranch, "1.2.1"},
   "relx": {:hex, :relx, "3.18.0"},
   "slack": {:hex, :slack, "0.4.2"},
