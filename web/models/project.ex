@@ -1,5 +1,6 @@
 defmodule Kairos.Project do
   use Kairos.Web, :model
+  alias Kairos.ScheduledReport
 
   @derive {Poison.Encoder, only: [:id, :name, :description, :pivotal_tracker_id, :toggl_id, :start_date]}
 
@@ -9,6 +10,9 @@ defmodule Kairos.Project do
     field :pivotal_tracker_id, :integer
     field :toggl_id, :integer
     field :start_date, Ecto.Date
+
+    # Association
+    has_many :scheduled_reports, ScheduledReport
 
     timestamps
   end
