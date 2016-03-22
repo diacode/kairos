@@ -23,6 +23,7 @@ defmodule Kairos.Mixfile do
        :phoenix_html,
        :cowboy,
        :logger,
+       :guardian,
        :gettext,
        :phoenix_ecto,
        :postgrex,
@@ -62,7 +63,8 @@ defmodule Kairos.Mixfile do
       {:togglex, "~> 0.1.0"},
       {:timex, "~> 2.1.1"},
       {:slacker,  "~> 0.0.2"},
-      {:websocket_client, github: "jeremyong/websocket_client"}
+      {:websocket_client, github: "jeremyong/websocket_client"},
+      {:exrm, "~> 1.0.2"}
     ]
   end
 
