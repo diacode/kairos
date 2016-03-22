@@ -2,7 +2,7 @@ defmodule Kairos.UserChannel do
   use Kairos.Web, :channel
   require Logger
 
-  alias Kairos.{Repo, User, Project}
+  alias Kairos.{Repo, User, Project, ScheduledReport}
 
   def join("users:" <> user_id, _params, socket) do
     Logger.debug "Joining user #{user_id} channel"
@@ -69,6 +69,12 @@ defmodule Kairos.UserChannel do
     else
       {:reply, {:error, %{reason: "Forbidden"}}, socket}
     end
+  end
+
+  def handle_in("user:scheduled_reports", _params, socket) do
+    Logger.debug "Requesting scheduled reports"
+    scheduled_reports = ScheduledReport |> Repo.all
+    {:reply, {:ok, %{scheduled_reports: scheduled_reports}}, socket}
   end
 
   def broad_cast_projects_updated(user_id, projects) do
