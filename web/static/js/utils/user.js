@@ -10,4 +10,8 @@ export default class User {
   canFetchProjects() {
     return this.channel !== null;
   }
+
+  canFetchScheduledReports() {
+    return this.channel !== null;
+  }
 }
