@@ -1,15 +1,16 @@
-import { IndexRoute, Route }  from 'react-router';
-import React                  from 'react';
-import MainLayout             from '../layouts/main';
-import Actions                from '../actions/sessions';
-import AuthenticatedContainer from '../containers/authenticated';
-import HomeIndexView          from '../views/home';
-import SessionsNew            from '../views/sessions/new';
-import SettingsIndexView      from '../views/settings/index';
-import ProjectsNewView        from '../views/projects/new';
-import ProjectsShowView       from '../views/projects/show';
-import ProjectsShowStories    from '../views/projects/show/stories';
-import NotFoundView           from '../views/errors/not_found';
+import { IndexRoute, Route }      from 'react-router';
+import React                      from 'react';
+import MainLayout                 from '../layouts/main';
+import Actions                    from '../actions/sessions';
+import AuthenticatedContainer     from '../containers/authenticated';
+import HomeIndexView              from '../views/home';
+import SessionsNew                from '../views/sessions/new';
+import SettingsIndexView          from '../views/settings/index';
+import ProjectsNewView            from '../views/projects/new';
+import ProjectsShowView           from '../views/projects/show';
+import ProjectsShowStories        from '../views/projects/show/stories';
+import ScheduledReportsIndexView  from '../views/scheduled_reports/index';
+import NotFoundView               from '../views/errors/not_found';
 
 export default function configRoutes(store) {
   const _ensureAuthenticated = (nextState, replace, callback) => {
@@ -36,6 +37,8 @@ export default function configRoutes(store) {
         </Route>
         <Route path="project/:id" component={ProjectsShowView}>
           <IndexRoute component={ProjectsShowStories} />
+        </Route>
+        <Route path="scheduled_reports" component={ScheduledReportsIndexView}>
         </Route>
 
         <Route path="settings" component={SettingsIndexView} />
