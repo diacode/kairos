@@ -10,6 +10,7 @@ import ProjectsNewView            from '../views/projects/new';
 import ProjectsShowView           from '../views/projects/show';
 import ProjectsShowStories        from '../views/projects/show/stories';
 import ScheduledReportsIndexView  from '../views/scheduled_reports/index';
+import ScheduledReportsNewView  from '../views/scheduled_reports/new';
 import NotFoundView               from '../views/errors/not_found';
 
 export default function configRoutes(store) {
@@ -39,6 +40,7 @@ export default function configRoutes(store) {
           <IndexRoute component={ProjectsShowStories} />
         </Route>
         <Route path="scheduled_reports" component={ScheduledReportsIndexView}>
+          <Route path="new" component={ScheduledReportsNewView} />
         </Route>
 
         <Route path="settings" component={SettingsIndexView} />

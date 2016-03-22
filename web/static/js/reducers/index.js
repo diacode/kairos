@@ -6,6 +6,7 @@ import projects             from './projects';
 import scheduledReports     from './scheduled_reports';
 import currentProject       from './current_project';
 import projectForm          from './project_form';
+import scheduledReportForm  from './scheduled_report_form';
 
 export default combineReducers({
   routing: routerReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   scheduledReports: scheduledReports,
   currentProject: currentProject,
   projectForm: projectForm,
+  scheduledReportForm: scheduledReportForm,
 });
