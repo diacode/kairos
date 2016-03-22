@@ -31,7 +31,8 @@ defmodule Kairos.Mixfile do
        :extracker,
        :togglex,
        :timex,
-       :slacker
+       :slacker,
+       :hound
      ]
    ]
   end

@@ -6,7 +6,6 @@ defmodule Kairos.Event.ProjectUpdateHandler do
     Logger.debug "Handling updated events for projects"
 
     Kairos.Project.Starter.get_projects
-    |> send_slack_notification
     |> Enum.map(&Kairos.Project.Server.get_data/1)
     |> update_projects_channels
     |> update_users_channels
@@ -26,12 +25,6 @@ defmodule Kairos.Event.ProjectUpdateHandler do
 
   defp update_users_channels(projects) do
     for user_id <- Kairos.Users.Monitor.get_state, do: spawn(fn -> Kairos.UserChannel.broad_cast_projects_updated(user_id, projects) end)
-
-    projects
-  end
-
-  defp send_slack_notification(projects) do
-    Kairos.Slack.Client.projects_udpated(projects)
 
     projects
   end
