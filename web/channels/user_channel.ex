@@ -77,6 +77,22 @@ defmodule Kairos.UserChannel do
     {:reply, {:ok, %{scheduled_reports: scheduled_reports}}, socket}
   end
 
+  def handle_in("user:create_scheduled_report", %{"scheduled_report" => params}, socket) do
+    Logger.debug "Creating new scheduled report"
+
+    current_user = socket.assigns.current_user
+
+    if current_user.admin do
+      scheduled_report = %ScheduledReport{}
+        |> ScheduledReport.changeset(params)
+        |> Repo.insert!
+
+      {:reply, {:ok, %{scheduled_report: scheduled_report}}, socket}
+    else
+      {:reply, {:error, %{reason: "Forbidden"}}, socket}
+    end
+  end
+
   def broad_cast_projects_updated(user_id, projects) do
     Kairos.Endpoint.broadcast("users:#{user_id}", "update_projects", %{projects: projects})
   end
