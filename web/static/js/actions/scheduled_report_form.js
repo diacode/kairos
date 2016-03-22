@@ -25,6 +25,6 @@ export function createScheduledReport(currentUser, data) {
 
 export function reset() {
   return {
-    type: Constants.PROJECT_FORM_RESET,
+    type: Constants.SCHEDULED_REPORT_FORM_RESET,
   };
 }
