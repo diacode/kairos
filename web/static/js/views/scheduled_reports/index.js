@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect }                      from 'react-redux';
 import classnames                       from 'classnames';
+import { Link }                         from 'react-router';
 import { push }                         from 'react-router-redux';
 import { setDocumentTitle }             from '../../utils';
 import { setScheduledReports,
@@ -39,16 +40,29 @@ class ScheduledReportsIndexView extends React.Component {
 
     const scheduledReportsNodes = scheduledReports.map((item) => {
       return (
-        <div key={item.id}>
-          {item.name}
-        </div>
+        <tr key={item.id}>
+          <td>{item.id}</td>
+          <td>{item.name}</td>
+          <td>{item.project.name}</td>
+          <td>{item.days}</td>
+        </tr>
       );
     });
 
     return (
-      <div className="scheduled-reports-list">
-        {scheduledReportsNodes}
-      </div>
+      <table className="scheduled-reports-table">
+        <thead>
+          <tr>
+            <th className="col-id">Id</th>
+            <th className="col-name">Name</th>
+            <th className="col-project">Project</th>
+            <th className="col-days">Days</th>
+          </tr>
+        </thead>
+        <tbody>
+          {scheduledReportsNodes}
+        </tbody>
+      </table>
     );
   }
 
@@ -72,9 +86,10 @@ class ScheduledReportsIndexView extends React.Component {
 
   render() {
     return (
-      <div className="view-container">
+      <div id="scheduled_reports_index" className="view-container">
         {::this._renderScheduledReports()}
         {this.props.children}
+        <Link to="/scheduled_reports/new" className="btn">New Report</Link>
       </div>
     );
   }

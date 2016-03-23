@@ -2,7 +2,7 @@ defmodule Kairos.ScheduledReport do
   use Kairos.Web, :model
   alias Kairos.Project
 
-  @derive {Poison.Encoder, only: [:id, :name, :days, :frequency, :recipients, :cc, :cco, :project_id]}
+  @derive {Poison.Encoder, only: [:id, :name, :days, :frequency, :recipients, :cc, :cco, :project_id, :project]}
 
   schema "scheduled_reports" do
     field :name, :string
@@ -32,5 +32,9 @@ defmodule Kairos.ScheduledReport do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+  end
+
+  def preload_all(query) do
+    from c in query, preload: [:project]
   end
 end

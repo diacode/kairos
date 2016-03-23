@@ -1,0 +1,30 @@
+#scheduled_reports_index
+  .scheduled-reports-table
+    td, th
+      padding: .75rem
+      border-width: 1px
+      border-style: solid
+      border-color: $light-brown
+
+    thead
+      th
+        background: transparent
+        border-width: 0 0 1px 0
+
+    tbody
+      tr
+        &:nth-child(odd)
+          td
+            background: lighten($light-gray, 5)
+        &:nth-last-child(even)
+          td
+            background: #fff
+
+    // Column widths
+    th
+      &.col-id
+        width: 10%
+      &.col-project
+        width: 20%
+      &.col-days
+        width: 10%

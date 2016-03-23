@@ -73,7 +73,9 @@ defmodule Kairos.UserChannel do
 
   def handle_in("user:scheduled_reports", _params, socket) do
     Logger.debug "Requesting scheduled reports"
-    scheduled_reports = ScheduledReport |> Repo.all
+    scheduled_reports = ScheduledReport
+      |> ScheduledReport.preload_all
+      |> Repo.all
     {:reply, {:ok, %{scheduled_reports: scheduled_reports}}, socket}
   end
 
