@@ -3,6 +3,7 @@ defmodule Kairos.UserChannel do
   require Logger
 
   alias Kairos.{Repo, User, Project, ScheduledReport}
+  alias Kairos.ScheduledReport.Scheduler, as: ReportScheduler
 
   def join("users:" <> user_id, _params, socket) do
     Logger.debug "Joining user #{user_id} channel"
@@ -88,6 +89,8 @@ defmodule Kairos.UserChannel do
       scheduled_report = %ScheduledReport{}
         |> ScheduledReport.changeset(params)
         |> Repo.insert!
+
+      ReportScheduler.schedule(scheduled_report)
 
       {:reply, {:ok, %{scheduled_report: scheduled_report}}, socket}
     else
