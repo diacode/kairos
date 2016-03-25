@@ -49,7 +49,7 @@
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.0"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
   "timex": {:hex, :timex, "2.1.1"},
-  "togglex": {:hex, :togglex, "0.1.0"},
+  "togglex": {:hex, :togglex, "0.2.0"},
   "tzdata": {:hex, :tzdata, "0.5.6"},
   "uuid": {:hex, :uuid, "1.1.3"},
   "websocket_client": {:git, "https://github.com/jeremyong/websocket_client.git", "f6892c8b55004008ce2d52be7d98b156f3e34569", []}}
