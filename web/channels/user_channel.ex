@@ -87,8 +87,9 @@ defmodule Kairos.UserChannel do
 
     if current_user.admin do
       scheduled_report = %ScheduledReport{}
-        |> ScheduledReport.changeset(params)
-        |> Repo.insert!
+      |> ScheduledReport.changeset(params)
+      |> Repo.insert!
+      |> Repo.preload(:project)
 
       ReportScheduler.schedule(scheduled_report)
 
