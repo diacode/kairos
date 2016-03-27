@@ -68,7 +68,7 @@ defmodule Kairos.Mixfile do
       {:websocket_client, github: "jeremyong/websocket_client"},
       {:exrm, "~> 1.0.2"},
       {:quantum, "~> 1.7.0"},
-      {:phoenix_swoosh, "0.1.0"}
+      {:mailman, "0.2.2"}
     ]
   end
 
