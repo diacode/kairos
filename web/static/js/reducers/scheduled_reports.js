@@ -13,6 +13,11 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.SCHEDULED_REPORTS_SET:
       return { ...initialState, scheduledReports: action.scheduledReports, fetching: false };
 
+    case Constants.SCHEDULED_REPORTS_ADD:
+      let scheduledReports = state.scheduledReports;
+      scheduledReports.push(action.scheduledReport);
+      return { ...initialState, scheduledReports: scheduledReports }
+
     default:
       return state;
   }

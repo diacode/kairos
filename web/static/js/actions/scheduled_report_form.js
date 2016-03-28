@@ -17,7 +17,10 @@ export function createScheduledReport(currentUser, data) {
   return dispatch => {
     currentUser.channel.push('user:create_scheduled_report', { scheduled_report: data })
     .receive('ok', (payload) => {
-      //dispatch(push(`/project/${payload.project.id}`));
+      dispatch({
+        type: Constants.SCHEDULED_REPORTS_ADD,
+        scheduledReport: payload.scheduled_report
+      })
       dispatch(push(`/scheduled_reports`));
     });
   };

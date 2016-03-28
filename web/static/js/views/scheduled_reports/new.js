@@ -36,7 +36,7 @@ class ScheduledReportsNewView extends React.Component {
     e.preventDefault();
 
     const { dispatch, currentUser, projects } = this.props;
-    const { name, days, frequency, projectId } = this.refs;
+    const { name, days, frequency, projectId, recipients, cc, cco } = this.refs;
     const projectIdValue = projectId.value;
     const project = projects.find((p) => { return p.id == projectIdValue; });
 
@@ -45,6 +45,9 @@ class ScheduledReportsNewView extends React.Component {
       days: days.value.trim(),
       frequency: frequency.value.trim(),
       project_id: projectIdValue,
+      recipients: recipients.value.split(","),
+      cc: cc.value.split(","),
+      cco: cco.value.split(","),
     };
 
     dispatch(createScheduledReport(currentUser, data));
@@ -80,6 +83,18 @@ class ScheduledReportsNewView extends React.Component {
             <select ref="projectId" required={true}>
             {::this._renderOptions(projects)}
             </select>
+          </div>
+          <div className="inputs">
+            <label>To</label>
+            <input ref="recipients" placeholder="Recipients (comma separated)"/>
+          </div>
+          <div className="inputs">
+            <label>CCO</label>
+            <input ref="cc" placeholder="CC (comma separated)"/>
+          </div>
+          <div className="inputs">
+            <label>BCC</label>
+            <input ref="cco" placeholder="CCO (comma separated)"/>
           </div>
           <div className="actions">
             <button type="submit">Save</button> or <Link to="/scheduled_reports">cancel</Link>
