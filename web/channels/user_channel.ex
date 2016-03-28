@@ -99,6 +99,23 @@ defmodule Kairos.UserChannel do
     end
   end
 
+  def handle_in("user:delete_scheduled_report", %{"scheduled_report_id" => scheduled_report_id}, socket) do
+    Logger.debug "Deleting scheduled report #{scheduled_report_id}"
+
+    current_user = socket.assigns.current_user
+
+    if current_user.admin do
+      scheduled_report = Repo.get(ScheduledReport, scheduled_report_id)
+      Repo.delete!(scheduled_report)
+
+      ReportScheduler.unschedule(scheduled_report)
+
+      {:reply, {:ok, %{scheduled_report_id: scheduled_report_id}}, socket}
+    else
+      {:reply, {:error, %{reason: "Forbidden"}}, socket}
+    end
+  end
+
   def broad_cast_projects_updated(user_id, projects) do
     Kairos.Endpoint.broadcast("users:#{user_id}", "update_projects", %{projects: projects})
   end

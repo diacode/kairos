@@ -4,8 +4,10 @@ import classnames                       from 'classnames';
 import { Link }                         from 'react-router';
 import { push }                         from 'react-router-redux';
 import { setDocumentTitle }             from '../../utils';
-import { setScheduledReports,
-  fetchScheduledReports }               from '../../actions/scheduled_reports';
+import {
+  setScheduledReports,
+  fetchScheduledReports,
+  deleteReport }                        from '../../actions/scheduled_reports';
 
 class ScheduledReportsIndexView extends React.Component {
   componentDidMount() {
@@ -31,6 +33,14 @@ class ScheduledReportsIndexView extends React.Component {
     dispatch(fetchScheduledReports(currentUser.channel));
   }
 
+  _deleteReport(scheduledReportId){
+    const { currentUser, dispatch } = this.props;
+
+    if(confirm('Are you sure?')){
+      dispatch(deleteReport(currentUser.channel, scheduledReportId));
+    }
+  }
+
   _renderScheduledReports() {
     const { scheduledReports, fetching, currentUser, dispatch, channel } = this.props;
 
@@ -39,12 +49,22 @@ class ScheduledReportsIndexView extends React.Component {
     if (scheduledReports.length == 0) return this._renderNoResults();
 
     const scheduledReportsNodes = scheduledReports.map((item) => {
+      const onClick = (e) => {
+        e.preventDefault();
+        this._deleteReport(item.id);
+      }
+
       return (
         <tr key={item.id}>
           <td>{item.id}</td>
           <td>{item.name}</td>
           <td>{item.project.name}</td>
           <td>{item.days}</td>
+          <td className="col-delete">
+            <button onClick={onClick}>
+              <i className="fa fa-trash"/>
+            </button>
+          </td>
         </tr>
       );
     });
@@ -57,6 +77,7 @@ class ScheduledReportsIndexView extends React.Component {
             <th className="col-name">Name</th>
             <th className="col-project">Project</th>
             <th className="col-days">Days</th>
+            <th className="col-delete">&nbsp;</th>
           </tr>
         </thead>
         <tbody>

@@ -22,3 +22,15 @@ export function setScheduledReports(scheduledReports) {
     });
   };
 }
+
+export function deleteReport(channel, scheduledReportId){
+  return dispatch => {
+    channel.push('user:delete_scheduled_report', {scheduled_report_id: scheduledReportId})
+    .receive('ok', (payload) => {
+      dispatch({
+        type: Constants.SCHEDULED_REPORTS_REMOVED,
+        scheduledReportId: payload.scheduled_report_id
+      });
+    });
+  }
+}
