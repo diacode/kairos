@@ -78,6 +78,12 @@ class Header extends React.Component {
         </Link>
         <nav className="right">
           <ul>
+            <li>
+              <Link to="/projects" activeClassName="active">Projects</Link>
+            </li>
+            <li>
+              <Link to="/reports" activeClassName="active">Reports</Link>
+            </li>
             <li className="menu-wrapper">
               {this._renderCurrentUser()}
               {this._renderDropdown(showMenu)}
