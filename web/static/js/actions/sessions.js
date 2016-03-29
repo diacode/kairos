@@ -30,6 +30,13 @@ export function setCurrentUser(dispatch, user) {
     channel.on('update_projects', (payload) => {
       dispatch(setProjects(payload.projects));
     });
+
+    channel.on('project_added', (payload) => {
+      dispatch({
+        type: Constants.PROJECTS_ADD,
+        project: payload.project,
+      });
+    });
   }
 };
 

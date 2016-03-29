@@ -13,6 +13,12 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.PROJECTS_SET:
       return { ...initialState, projects: action.projects, fetching: false };
 
+    case Constants.PROJECTS_ADD:
+      const projects = [...state.projects];
+      projects.push(action.project);
+
+      return { ...initialState, projects: projects };
+
     default:
       return state;
   }
