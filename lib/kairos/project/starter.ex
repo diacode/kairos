@@ -86,7 +86,7 @@ defmodule Kairos.Project.Starter do
     Process.send_after(self(), :refresh_projects, 5 * 60 * 1000)
   end
 
-  def do_refresh_project(project_id) do
+  defp do_refresh_project(project_id) do
     Task.async(
       fn ->
         project_id

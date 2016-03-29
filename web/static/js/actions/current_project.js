@@ -29,10 +29,8 @@ export function fetchProject(socket, id) {
     });
 
     channel.on('deleted', (payload) => {
-      channel.leave();
-      dispatch(push('/projects'));
+      channel.leave().receive('ok', () => dispatch(push('/projects')));
     });
-
   };
 }
 

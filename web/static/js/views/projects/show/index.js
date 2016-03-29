@@ -19,7 +19,6 @@ export default class ProjectsShowView extends React.Component {
     const { dispatch, channel } = this.props;
 
     if (channel != null) {
-      channel.leave();
       dispatch(reset(channel));
     }
   }
