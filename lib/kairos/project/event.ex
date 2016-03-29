@@ -1,6 +1,6 @@
 defmodule Kairos.Project.Event do
   @handlers [
-    Kairos.Event.ProjectUpdateHandler
+    Kairos.Event.ProjectsHandler
   ]
 
   def start_link do
@@ -13,5 +13,9 @@ defmodule Kairos.Project.Event do
 
   def updated() do
     GenEvent.notify(__MODULE__, :updated)
+  end
+
+  def created(project) do
+    GenEvent.notify(__MODULE__, {:created, project})
   end
 end
