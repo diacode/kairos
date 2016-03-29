@@ -39,7 +39,10 @@ defmodule Kairos.Project.Server do
   def init(project) do
     Logger.debug "Starting server for project #{project.id}"
 
-    {:ok, build_data(project)}
+    data = build_data(project)
+    Kairos.Project.Event.created(data)
+
+    {:ok, data}
   end
 
   @doc """
