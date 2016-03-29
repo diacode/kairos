@@ -18,4 +18,8 @@ defmodule Kairos.Project.Event do
   def created(project) do
     GenEvent.notify(__MODULE__, {:created, project})
   end
+
+  def removed(project_id) do
+    GenEvent.notify(__MODULE__, {:removed, project_id})
+  end
 end

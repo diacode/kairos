@@ -79,6 +79,10 @@ defmodule Kairos.UserChannel do
     Kairos.Endpoint.broadcast("users:#{user_id}", "project_added", %{project: project})
   end
 
+  def broad_cast_project_removed(user_id, project_id) do
+    Kairos.Endpoint.broadcast("users:#{user_id}", "project_removed", %{project_id: project_id})
+  end
+
   def terminate(_reason, socket) do
     current_user = socket.assigns.current_user
 

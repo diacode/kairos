@@ -31,8 +31,6 @@ defmodule Kairos.ProjectChannel do
 
       Kairos.Project.Starter.remove_project(project.id)
 
-      broadcast!(socket, "deleted", %{project: project})
-
       {:noreply, socket}
     else
       {:reply, {:error, %{reason: "Forbidden"}}, socket}
@@ -41,5 +39,9 @@ defmodule Kairos.ProjectChannel do
 
   def broadcast_update(project) do
     Kairos.Endpoint.broadcast("project:#{project.id}", "update", %{project: project})
+  end
+
+  def broadcast_delete(project_id) do
+    Kairos.Endpoint.broadcast("project:#{project_id}", "deleted", %{project_id: project_id})
   end
 end

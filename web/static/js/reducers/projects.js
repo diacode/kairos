@@ -6,6 +6,8 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action = {}) {
+  let projects = null;
+
   switch (action.type) {
     case Constants.PROJECTS_FETCH_START:
       return { ...state, fetching: true };
@@ -16,8 +18,17 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.PROJECTS_ADD:
       if (state.projects == null) return { ...state };
 
-      const projects = [...state.projects];
+      projects = [...state.projects];
       projects.push(action.project);
+
+      return { ...initialState, projects: projects };
+
+    case Constants.PROJECTS_REMOVE:
+      if (state.projects == null) return { ...state };
+
+      projects = [...state.projects];
+      const index = projects.findIndex((project) => project.id == action.projectId);
+      projects.splice(index, 1);
 
       return { ...initialState, projects: projects };
 

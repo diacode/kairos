@@ -21,6 +21,15 @@ defmodule Kairos.Event.ProjectsHandler do
     {:ok, state}
   end
 
+  def handle_event({:removed, project_id}, state) do
+    Logger.debug "Handling created event for projects"
+
+    for user_id <- Kairos.Users.Monitor.get_state, do: spawn(fn -> Kairos.UserChannel.broad_cast_project_removed(user_id, project_id) end)
+    Kairos.ProjectChannel.broadcast_delete(project_id)
+
+    {:ok, state}
+  end
+
   def handle_event(_other, state) do
     {:ok, state}
   end

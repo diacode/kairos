@@ -56,6 +56,8 @@ defmodule Kairos.Project.Starter do
 
     projects = List.delete(projects, project_id)
 
+    Kairos.Project.Event.removed(project_id)
+
     {:noreply, %{projects: projects}}
   end
 

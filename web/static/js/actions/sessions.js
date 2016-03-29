@@ -37,6 +37,13 @@ export function setCurrentUser(dispatch, user) {
         project: payload.project,
       });
     });
+
+    channel.on('project_removed', (payload) => {
+      dispatch({
+        type: Constants.PROJECTS_REMOVE,
+        projectId: payload.project_id,
+      });
+    });
   }
 };
 
