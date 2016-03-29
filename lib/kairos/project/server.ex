@@ -49,8 +49,18 @@ defmodule Kairos.Project.Server do
     try_call(project_id, :get_data)
   end
 
+  def stop(project_id) do
+    try_call(project_id, :stop)
+  end
+
   def handle_call(:get_data, _from, state) do
     {:reply, state, state}
+  end
+
+  def handle_call(:stop, _from, state) do
+    Logger.debug "Stopping server for project #{state.id}"
+
+    {:stop, :normal, :ok, state}
   end
 
   def handle_info(:refresh, state) do

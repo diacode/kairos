@@ -37,6 +37,9 @@ defmodule Kairos.Project.Starter do
     GenServer.call(__MODULE__, :get_projects)
   end
 
+  def remove_project(project_id) do
+    GenServer.cast(__MODULE__, {:remove_project, project_id})
+  end
 
   def handle_call(:get_projects, _from, %{projects: projects} = state) do
     {:reply, projects, state}
@@ -46,6 +49,14 @@ defmodule Kairos.Project.Starter do
     Kairos.Project.Server.create(project)
 
     {:noreply, %{state | projects: [project.id | projects]}}
+  end
+
+  def handle_cast({:remove_project, project_id}, %{projects: projects} = state) do
+    Kairos.Project.Server.stop(project_id)
+
+    projects = List.delete(projects, project_id)
+
+    {:noreply, %{projects: projects}}
   end
 
   def handle_info(:refresh_projects, %{projects: projects} = state) do
