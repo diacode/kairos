@@ -1,4 +1,5 @@
-import Constants from '../constants';
+import Constants  from '../constants';
+import { push }   from 'react-router-redux';
 
 function setCurrentProject(channel, project) {
   return {
@@ -24,9 +25,14 @@ export function fetchProject(socket, id) {
     });
 
     channel.on('update', (payload) => {
-      console.log(payload);
       dispatch(setCurrentProject(channel, payload.project));
     });
+
+    channel.on('deleted', (payload) => {
+      channel.leave();
+      dispatch(push('/projects'));
+    });
+
   };
 }
 
@@ -39,8 +45,19 @@ export function filterStories(data) {
   };
 }
 
-export function reset() {
+export function deleteProject(channel) {
   return dispatch => {
+    channel.push('project:delete')
+    .receive('error', (payload) => {
+      console.log('Error deleting project');
+    });;
+  };
+}
+
+export function reset(channel) {
+  return dispatch => {
+    channel.leave();
+
     dispatch({ type: Constants.CURRENT_PROJECT_RESET });
   };
 }

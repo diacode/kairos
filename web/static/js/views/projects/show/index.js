@@ -1,7 +1,10 @@
 import React, {PropTypes}        from 'react';
 import { connect }               from 'react-redux';
 import { IndexLink, Link }       from 'react-router';
-import { fetchProject, reset }   from '../../../actions/current_project';
+import {
+  fetchProject,
+  deleteProject,
+  reset }                        from '../../../actions/current_project';
 
 export default class ProjectsShowView extends React.Component {
   componentDidMount() {
@@ -15,9 +18,10 @@ export default class ProjectsShowView extends React.Component {
   componentWillUnmount() {
     const { dispatch, channel } = this.props;
 
-    if (channel != null)channel.leave();
-
-    dispatch(reset());
+    if (channel != null) {
+      channel.leave();
+      dispatch(reset(channel));
+    }
   }
 
   _fetchProject(props) {
@@ -62,6 +66,26 @@ export default class ProjectsShowView extends React.Component {
     );
   }
 
+  _renderActions() {
+    const { currentUser } = this.props;
+
+    if (!currentUser.admin) return false;
+
+    return (
+      <li>
+        <a href="#" onClick={::this._handleCancelClick}><i className="fa fa-trash"/> delete project</a>
+      </li>
+    );
+  }
+
+  _handleCancelClick(e) {
+    e.preventDefault();
+
+    const { dispatch, channel } = this.props;
+
+    if (confirm('Are you sure?')) dispatch(deleteProject(channel));
+  }
+
   render() {
     const { currentUser, name, description, stories, id, error } = this.props;
 
@@ -83,6 +107,7 @@ export default class ProjectsShowView extends React.Component {
               <li>
                 <IndexLink to={`/project/${id}`} activeClassName="active">Stories</IndexLink>
               </li>
+              {::this._renderActions()}
             </ul>
           </div>
         </nav>
