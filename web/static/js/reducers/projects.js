@@ -14,6 +14,8 @@ export default function reducer(state = initialState, action = {}) {
       return { ...initialState, projects: action.projects, fetching: false };
 
     case Constants.PROJECTS_ADD:
+      if (state.projects == null) return { ...state };
+
       const projects = [...state.projects];
       projects.push(action.project);
 
