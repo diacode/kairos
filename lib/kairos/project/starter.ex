@@ -66,9 +66,7 @@ defmodule Kairos.Project.Starter do
 
     projects
     |> Enum.map(&do_refresh_project/1)
-    |> Enum.map(&Task.await/1)
-
-    plan_refresh_projects
+    |> Enum.each(&Task.await/1)
 
     Kairos.Project.Event.updated
 
@@ -85,7 +83,7 @@ defmodule Kairos.Project.Starter do
   end
 
   defp plan_refresh_projects do
-    Process.send_after(self(), :refresh_projects, 5 * 60 * 1000)
+    :timer.send_interval(1 * 15 * 1000, :refresh_projects)
   end
 
   defp do_refresh_project(project_id) do
