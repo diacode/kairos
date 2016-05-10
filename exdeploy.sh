@@ -32,6 +32,10 @@ deploy() {
   echo -e "--> Copying shared/prod.config.exs"
   ssh ${REMOTE_USER}@${SERVER} -- "cp ${SHARED_DIR}/prod.secret.exs ${BUILD_DIR}/config"
 
+  ### Update Hex version
+  echo -e "--> Updating Hex version\n"
+  ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && mix local.hex --force"
+
   ### Build on remote
   echo -e "--> Building on remote\n"
   ssh ${REMOTE_USER}@${SERVER} -- "cd ${BUILD_DIR} && mix deps.get --only prod"
