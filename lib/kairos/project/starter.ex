@@ -13,14 +13,9 @@ defmodule Kairos.Project.Starter do
   end
 
   def init(_) do
-    projects = Project
-      |> Repo.all
-      |> Enum.map(&do_start_project/1)
-      |> Enum.map(&Task.await/1)
+    send self, :after_init
 
-    plan_refresh_projects
-
-    {:ok, %{projects: projects}}
+    {:ok, %{projects: []}}
   end
 
   @doc """
@@ -51,12 +46,23 @@ defmodule Kairos.Project.Starter do
     {:noreply, %{state | projects: [project.id | projects]}}
   end
 
-  def handle_cast({:remove_project, project_id}, %{projects: projects} = state) do
+  def handle_cast({:remove_project, project_id}, %{projects: projects}) do
     Kairos.Project.Server.stop(project_id)
 
     projects = List.delete(projects, project_id)
 
     Kairos.Project.Event.removed(project_id)
+
+    {:noreply, %{projects: projects}}
+  end
+
+  def handle_info(:after_init, _state) do
+    projects = Project
+      |> Repo.all
+      |> Enum.map(&do_start_project/1)
+      |> Enum.map(&Task.await/1)
+
+    plan_refresh_projects
 
     {:noreply, %{projects: projects}}
   end
